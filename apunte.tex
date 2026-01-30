@@ -1,0 +1,315 @@
+\documentclass[12pt]{article} 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\newtheorem{theorem}{Teorema}
+\newtheorem{definition}{Definición}
+\newtheorem{prop}{Propiedad}
+\begin{document}
+
+
+\section{Introducción}
+
+
+\section{Preliminares}
+
+\begin{definition}
+    Sea $A \in \mathbb{R}$ un conjunto no vacío. Se dice que $c \in \mathbb{R}$ es una cota superior de $A$ si $c \ge x, \forall x \in A$. Un conjunto acotado superiormente es aquel que tiene una cota superior.
+\end{definition}
+
+\begin{definition}
+    Sea $A \in \mathbb{R}$ un conjunto no vacío y acotado superiormente. Se dice que $s \in \mathbb{R}$ es supremo de $A$ si cumple:
+    \begin{itemize}
+        \item $s$ es cota superior de $A$
+        \item $\forall t$ cota superior de $A$, $t \ge s$
+    \end{itemize}
+\end{definition}
+
+\begin{prop}
+    Sea $A \in \mathbb{R}$ un conjunto no vacío y acotado superiormente. $s \in \mathbb{R}$ es supremo de $A$ si y solo si cumple:
+    \begin{itemize}
+        \item $s$ es cota superior de A
+        \item $\forall \epsilon > 0, \exists a \in A : a > s - \epsilon$
+    \end{itemize}
+\end{prop}
+\begin{proof}
+    Si $s$ es supremo entonces ya se verifica la primera de las dos propiedades. Para la segunda procedo por el absurdo, supongo que $\exists \epsilon > 0, \forall a \in A : a \le s - \epsilon$, por lo tanto se cumple que $t = s - \epsilon$ es cota superior de $A$, pero a su vez $t < s$, donde $s$ era supremo de $A$, absurdo, y por lo tanto no existe dicho $\epsilon$ y se demostró lo pedido.
+
+    Para la otra dirección de la equivalencia también tenemos la primera condición dada. Supongo ahora que $\exists t < s$ tal que $t$ es cota superior. Por hipótesis si se fija $\epsilon = s - t, \exists a \in A : a > s - \epsilon = s - (s - t) = t \Rightarrow a > t$, pero se tiene que $t$ es cota superior, absurdo. Y por ende se concluye que $s$ es supremo de $A$.
+\end{proof}
+\begin{prop}
+    Sea $A \in \mathbb{R}$ un conjunto no vacío y acotado superiormente. Luego $s \in \mathbb{R}$ es supremo de $A$ si y solo si:
+    \begin{itemize}
+        \item $s$ es cota superior de $A$
+        \item $\exists (a_n) \subset A : a_n \rightarrow s$
+    \end{itemize}
+\end{prop}
+\begin{proof}
+    Si $s$ es supremo ya se cumple la primera propiedad y usando la equivalencia se tiene que $\forall n \in \mathbb{N}, \exists a_n : a_n > s - \frac{1}{n}$, de donde es claro que la sucesión dada por estos términos cumple $a_n \rightarrow s$. 
+
+    Para la otra dirección, de forma análoga ya se tiene la primera propiedad. Supongo que el supremo no es $s$, sea $t$ el supremo, luego se tiene que $t < s$ y se puede definir $\epsilon = s - t$ y por definición de límite se cumple que $\exists n_0 \in \mathbb{N} : n \ge n_0 \Rightarrow |s - a_n | < \epsilon$ y por lo tanto se cumple que $a_n > s - \epsilon = s - (s - t) = t$, pero $t$ es el supremo de $A$, absurdo. Y se demostró lo pedido.
+\end{proof}
+
+\section{Cardinalidad}
+
+En esta sección vamos a dedicar un tiempo a pensar y explorar la noción de tamaño o cardinalidad de conjuntos en los que habitualmente no pensamos de esta forma, estos son los conjuntos no finitos. Cuando un conjunto es finito la cantidad de elementos que tiene es naturalmente su cardinal y de esta forma podemos notar que si $A = \{1, 2, 3\}$ entonces $\#A = 3$.
+
+Sin embargo este approach no funciona con los conjuntos no finitos, porque resultaría que todos tendrían cardinal infinito y toda nuestra exploración termina ahí. Pero al encontrar un bloqueo no hay que rendirnos y en este caso una idea muy útil y algo intuitiva es que si no podemos contar algo, podemos intentar contar algo que sea parecido o incluso mejor tenga la misma cantidad de elementos y sí sea facil de contar. Y esa es la idea con la que vamos a empezar, Georg Cantor entendió que no podía contar directamente los elementos de un conjunto, pero al menos sí podía comparlos entre sí.
+
+\begin{definition}
+    Sean $X, Y$ dos conjuntos. Decimos que son coordinables (o equipotentes, o de igual cardinal) si existe $f : X \rightarrow Y$ tal que $f$ es biyectiva. Y se suele notar $X \sim Y$
+\end{definition}
+\begin{prop}
+    La relación $\sim$ es una relación de equivalencia.
+\end{prop}
+\begin{proof}
+    Sean $X, Y, Z$ conjuntos tales que $X \sim Y$ y $Y \sim Z$. La identidad es biyectiva para todo conjunto por lo tanto la relación es reflexiva. Si $f : X \rightarrow Y$ es biyectiva, entonces tiene inversa y $f^{-1} : Y \rightarrow X$ es biyectiva y se sigue que la relación es simétrica. Si $g : Y \rightarrow Z$ es biyectiva se tiene que la composición $z = g \circ f, z : X \rightarrow Z$ es biyectiva y por tanto la relación es transitiva. Teniendo estas tres propiedades se sigue que la relación es de equivalencia.
+\end{proof}
+\begin{definition}
+    Un conjunto $A$ se dice numerable si $A \sim \mathbb{N}$. Un conjunto $A$ se dice contable si $A$ es finito o numerable.
+\end{definition}
+\begin{definition}
+    Decimos que $\#X \le \#Y$ si existe $f : X \rightarrow Y$ inyectiva. Luego, decimos que $\#X < \#Y$ si $\#X \le \#Y$, pero $\#X \neq \#Y$ 
+\end{definition}
+
+\begin{theorem}
+    
+\end{theorem}
+    Sea $X$ un conjunto, entonces $\#X < \#P(X)$ 
+\begin{proof}
+    Procedemos por el absurdo y supongamos que esto no es cierto. Y como es claro que la función identidad es inyectiva de $X \rightarrow P(X)$, entonces $X \sim P(X)$. Por lo tanto existe una function biyectiva entre los conjuntos, sea esta $f: X \rightarrow P(X)$. Considero el conjunto $A := \{ a \in X : a \notin f(a) \}$, como claramente $A \in P(X)$ tiene sentido evaluar $f^{-1}(A) = B$. 
+
+    Ahora existen 2 casos, o bien $B \in A$ o $B \notin A$. 
+
+    Caso 1° $B \in A$, entonces $B \notin f(B) = A \Rightarrow B \notin A$. Absurdo
+
+    Caso 2° $B \notin A$, entonces $B \in f(B) = A \Rightarrow B \in A$. Absurdo
+
+    Pero $f$ era una funcion biyectiva, pero sin embargo $f(B)$ no está definida. Por lo tanto la supocisión inicial era incorrecta y se concluye que $\#X < \#P(X)$
+\end{proof}
+
+La idea de este conjunto y demostración está acuñada bajo el término de la paradoja de Russel
+
+\begin{theorem}
+    Teorema de Schroder-Berstein. Si existen $f: X \rightarrow Y, g: Y \rightarrow X$ inyectivas, entonces existe $h: X \rightarrow Y$ biyectiva.
+\end{theorem}
+
+Este teorema va a ser fundamental porque en muchísimos casos encontrar una función biyectiva entre dos conjuntos va a ser bastante complicado, mientras que encontrar un par de funciones inyectivas como las del enunciado no va a ser tan difícil. La prueba es un poco difícil de adquirir a la primera, pero leyendola un par de veces sale.
+
+\begin{proof}
+    Sea $A_1 = X \setminus g(Y)$ e inductivamente se define $A_n = g(f(A_{n-1}))$. Afirmo que estos conjuntos son disjuntos dos a dos, para eso procedo por el absurdo y asumo que no es así, entonces $\exists j, i : x \in A_j, x \in A_i$, sin perdida de generalidad asumo que $i < j$. Como $g, f$ son ambas inyectivas se sigue que $\exists y : y \in f(A_{j-1}), y \in f(A_{i-1})$, donde a su vez $\exists k : k \in A_{j-1}, k \in A_{i-1}$. Por lo tanto llevando este argumento a su caso base se tiene que $\exists m : m \in A_1, m \in A_{j + 1 - i}$, pero si $m \in A_1 \Rightarrow m \notin g(Y)$, donde a su vez si $m \in A_{j + 1 - i} \Rightarrow m \in g(Y)$, absurdo. 
+
+    Por lo tanto sea $A = \cup A_n, B = \cup f(A_n)$, se sigue que $f: A \rightarrow B$ es una función biyectiva. Luego sea $A' = X \setminus A, B' = Y \setminus B$, es claro que $g: Y \rightarrow g(Y)$ es biyectiva por definición, entonces $g(B') = g(Y \setminus B) = g(Y) \setminus g(B) =  A'$
+
+    Finalmente se tiene que la función $h: X \rightarrow Y$ es biyectiva y cumple lo pedido 
+    \[
+       h(x) := \begin{cases}
+           f(x) & x \in A \\
+           g^{-1}(x) & x \in X \setminus A
+       \end{cases} 
+    \]
+
+\end{proof}
+
+Revisar esta última demo
+
+\begin{prop}
+    Sea $\{ A_n \}$ una familia numerable de conjuntos numerables, entonces $A = \cup A_n$ es un conjunto numerable.
+\end{prop}
+
+\begin{theorem}
+    Teorema de diagonalización de Cantor
+\end{theorem}
+
+\begin{prop}
+    Hipótesis del continuo de Cantor
+\end{prop}
+
+\section{Espacios Métricos}
+
+\begin{definition}
+   Espacio métrico. Sea $E$ un conjunto. Una función $d: E \times E \rightarrow \mathbb{R}$ se llama una métrica o una distancia sobre $E$ si se cumple: 
+   \begin{itemize}
+
+       \item $d(x, y) = 0 \iff x = y$
+       \item $d(x, y) = d(y, x), \forall x, y \in E$
+       \item $d(x, y) \leq d(x, z) + d(z, y), \forall x, y, z \in E$
+       
+   \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Se define a la distancia euclídea $d_2$ para $x, y \in \mathbb{R}^n$ como: 
+    \[
+        d_2(x, y) = (\sum_{i=1}^{n} (x_i - y_i)^{2})^{\frac{1}{2}} = \parallel x - y \parallel_2
+    \]
+\end{definition}
+
+\begin{definition}
+    De forma más general se va a definir la norma n en $\mathbb{R}^n$ como:
+    \[
+        d_n(x, y) = (\sum_{i=1}^{n} (x_i - y_i)^{n})^{\frac{1}{n}} = \parallel x - y \parallel_n
+    \]
+    Con la particularidad de que también se define la norma infinito como:
+    \[
+        d_{\infty}(x, y) = max_{1\leq i \leq n} \{|x_i - y_i|\}
+    \]
+    Siendo esto así porque este es el límite de las distancias cuando n se va a infinito
+\end{definition}
+
+\begin{definition}
+    Dado un intervalo cerrado $[a, b] \subset \mathbb{R}$, se denota $C([0, 1])$ al conjunto de todas las funciones $f: [a, b] \rightarrow \mathbb{R}$ al conjunto de todas las funciones $f: [a, b] \rightarrow \mathbb{R}$ continuas.
+\end{definition}
+
+\begin{definition}
+    Este conjunto tiene dos distancias intuitivas: la infinito y la uno. Se definen como:
+    \[
+        d_{\infty}(f, g) = sup_{a\leq t\leq b} |f(t) - g(t)|
+    \]
+    \[
+        d_1(f, g) = \int_{a}^{b} |f(t) - g(t)|
+    \]
+\end{definition}
+
+\begin{definition}
+    Sea $E$ un conjunto cualquiera. Definimos la distancia discreat en $E$ como:
+    \[
+        \delta(x, y) = \begin{cases}
+            0 & x = y \\
+            1 & x \neq y
+        \end{cases}
+    \]
+\end{definition}
+
+\begin{definition}
+    Dados $x \in E$ y $r > 0$, la bola abierta de centro $x$ y radio $r > 0$ es el conjunto definido por: 
+    \[
+        B(x, r) = \{y \in E : d(x, y) < r\}
+    \]
+\end{definition}
+
+\begin{definition}
+    Dados $x\in E$ y $r > 0$, la bola cerrada de centro $x$ y radio $r$ es el conjunto:
+    \[
+        \bar{B}(x, r) = \{y\in E : d(x, y) \leq r \}
+    \]
+\end{definition}
+
+\begin{definition}
+    Sea $A \subset E$. Decimos que $x$ es un punto interior de $A$ si existe algún $r>0$ tal que $B(x, r) \subset A$
+\end{definition}
+
+\begin{definition}
+    Sea $A \subset E$. El interior de $A$ es el conjunto de todos los puntos interiores de $A$, y se lo nota $A^{\circ}$
+\end{definition}
+
+\begin{definition}
+    Un conjunto $G \subset E$ se dice abierto si cada punto de $G$ es un punto interior de $G$, es decir si $G = G^{\circ}$
+\end{definition}
+
+\begin{theorem}
+    Sea $\{ A_n \}$ una familia de conjuntos abiertos, entonces $A = \cup A_n$ es un conjunto abierto. Además si la familia es finita, $B = \cap A_n$ también es abierto
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Un conjunto $V \subset E$ se llama entorno de $x$ si existe un conjunto abierto $G$ tal que $x \in G \subset V$
+\end{definition}
+
+\begin{definition}
+    Se dice que $x$ es un punto de adherencia del conjunto $A \subset E$ si para todo $r > 0$, $A \cap B(x, r) \neq \emptyset$
+\end{definition}
+
+\begin{definition}
+    La clausura de $A \subset E$ es el conjunto $\bar{A}$ formado por todos los puntos de adherencia del conjunto $A$
+\end{definition}
+
+\begin{definition}
+    Un conjunto $F$ se llama cerrado si $F = \bar{F}$
+\end{definition}
+
+\begin{theorem}
+    Un conjunto $A$ es cerrado si y solo si $A^{c}$ es abierto.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Sea $\{ A_n \}$ una familia de conjuntos cerrados. Si la familia es finita, entonces $A = \cup A_n$ es un conjunto cerrado.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Dada un conjunto $A$, el conjunto de puntos de acumulación de $A \subset E$ se denomina conjunto derivado de $A$, y se lo nota:
+    \[
+        A' = \{ x\in E : x \text{es punto de acumulación de} A \}
+    \]
+\end{definition}
+
+\begin{theorem}
+    Sea $A \subset E$, entonces $\bar{A} = A \cup A'$
+\end{theorem}
+
+\begin{definition}
+    Dado $A \subset E$, se dice que $x$ es un punto de la frontera de $A$ si para todo $r>0$, se cumple:
+    \[
+        B(x, r) \cap A \neq \emptyset, B(x, r) \cap A^{c} \neq \emptyset
+    \]
+    Al conjunto de los puntos frontera se lo nota $\partial A$
+\end{definition}
+
+\begin{definition}
+    Decimos que una sucesión $(x_n)_{n\in \mathbb{N}} \subset E$ converge a $x \in E$ si dado cualquier $\epsilon > 0$ existe un $n_0 \in \mathbb{N}$ tal que $d(x, x_n) < \epsilon, \forall n \geq n_0$ 
+\end{definition}
+
+\begin{definition}
+    Dado un conjunto $A \subset E$, un punto $x \in A$ se dice aislado si existe $r>0$ tal que $B(x, r) \cap A = \{ x \}$
+\end{definition}
+
+\begin{definition}
+Dado un conjunto $A \subset E$, se dice que es acotado si existen $x\in E, r>0$ tal que $A \subset B(x, r)$
+\end{definition}
+
+\begin{definition}
+    Una sucesión $(x_n)_{n\in \mathbb{N}}$ se dice acotada si se encuentra contenida en un conjunto acotado. Es decir, $\forall n \in \mathbb{N} : a_n \in A$, donde $A$ es un conjunto acotado.
+\end{definition}
+
+\begin{definition}
+    Una sucesión $(x_n)_n$ se dice de cauchy si para todo $\epsilon > 0$ existe $n_0 \in \mathbb{N}$ tal que si $n, m \geq n_0$, entonces $d(x_n, x_m) < \epsilon$
+\end{definition}
+
+\begin{theorem}
+    Sea $(E, d)$ un espacio métrico y $(x_n)_n \subset E$, luego:
+    \begin{itemize}
+        \item Si $(x_n)_n$ es de cauchy, entonces es acotada
+        \item Si $(x_n)_n$ es convergente, entonces es de cauchy
+        \item Si $(x_n)_n$ es de cauchy y tiene alguna subsucesión convergente, entonces $(x_n)_n$ es convergente. 
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{definition}
+    Un espacio métrico $(E, d)$ se dice completo si toda sucesión de cauchy es convergente a algún punto $x \in E$
+\end{definition}
+
+\section{Funciones Continuas}
+    El primer acercamiento que diría todos tienen al concepto de funciones continuas está capturado en la frase "las funciones que no dan salto" o "se pueden dibujar sin levantar el lápiz", esto está bien para el contexto donde se presenta, pero a esta altura ya vimos lugares donde esa definición no sirve, por ejemplo una función $f: \mathbb{R} \rightarrow \mathbb{R}^2$
+
+\section{Conjuntos Compactos}
+
+\section{Espacios Normados}
+
+\section{Sucesiones de Funciones}
+
+\section{Teoría de la medida}
+
+\section{Integral de Lebesgue}
+
+\end{document}
+
