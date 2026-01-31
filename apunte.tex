@@ -399,13 +399,92 @@ Si uno refresca rápidamente la etimología de homeomorfismo se da cuenta que se
 \end{proof}
 
 \begin{definition}
-    Si $f: E \rightarrow E'$ satisface $d(x, y) = d(f(x), f(y))$ se dice que $f$ es una isometría.
+    Si $f: E \rightarrow E'$ satisface $d(x, y) = d'(f(x), f(y))$ se dice que $f$ es una isometría.
 \end{definition}
 
 Nuevamente tiene sentido preguntarnos por la etimología, pero en este caso es un poco más obvia. Iso proviene de isos, que significa igual o lo mismo y metría viene de metron, que significa medida. Por lo tanto isometría significa de igual medida. Es decir, una isometría es una función que respeta y no altera la distancia entre puntos y las de sus imagenes.
 
 \section{Conjuntos Compactos}
 
+Ya entendemos lo que es un espacio métrico y tenemos diversas herramientas para clasificar y entender los distintos tipos de conjuntos y como interactuan con las funciones, es decir, que propiedades tienen. En las siguientes dos secciones vamos a desarrollar en mayor profundidad dos tipos de conjuntos que son habituales y aparecen a menudo en muchas aplicaciones.
+
+\begin{definition}
+    Sea $(E, d)$ un espacio métrico. Se dice que un subconjunto $K \subset E$ es un conjunto compacto si toda sucesión en $K$ tiene una subsucesión convergente en $K$. En otras palabras, $K$ es compacto si y solo si $\forall (x_n) \subset K, \exists (x_{n_j}) \subset K : \lim_{j\to\infty} x_{n_j} = x \in K$
+\end{definition}
+
+\begin{prop}
+    Sea $K \subset E$ compacto, entonces $K$ es cerrado y acotado. 
+\end{prop}
+\begin{proof}
+    Si $K$ no es acotado dado $x_0 \in K$, luego $\forall n\in \mathbb{N}, \exists x_n : d(x_n, x_0) \geq n$ y como $(x_n) \subset K$ es una sucesión en $K$ tiene una subsucesión convergente. Sea $(x_{n_j}) \rightarrow x$. Esto significa que $\lim_{j\to\infty} d(x_{n_j}, x) = 0$ y a su vez se cumple que $n_j \leq d(x_0, x_{n_j}) \leq d(x_0, x) + d(x, x_{n_j}) \Rightarrow \lim_{j\to\infty} n_j \leq \lim_{j\to\infty} d(x, x_{n_j}) \Rightarrow +\infty \leq 0$, absurdo! Por lo tanto $K$ es acotado. \\
+
+    Sea $(x_n) \subset K$ una sucesión convergente, luego por ser $K$ compacto $\exists (x_{n_j}): (x_{n_j}) \rightarrow x \in K$, pero como $(x_n)$ ya era convergente toda subsucesión converge al mismo límite y por ende $(x_n) \rightarrow x \in K$ y con esto se concluye que $K$ es cerrado.
+\end{proof} 
+
+\begin{theorem}
+    Teorema de Heine-Borel. Un conjunto $K \subset \mathbb{R}^{m}$ es compacto si y solo si es un conjunto cerrado y acotado
+\end{theorem}
+\begin{proof}
+    La implicación derecha es automática por la proposición demostrada antes. Así que hay que demostrar la implicación hacia la izquierda. \\
+    Sea $(x_n) \subset K$, como $K$ es acotado también lo es la sucesión. Sea $x_n = (x_n^{1}, x_n^{2}, ..., x_n^{m})$, como $x_n$ esta acotado también lo esta $x_n^{i}, \forall 1 \leq i \leq m$, y en particular lo está $x_n^{1}$, así que por el teorema de Bolzano-Weierstrass existe $x_{n_j}^{1} \rightarrow x^{1}$. Así que ahora podemos considerar a $x_{n_j} = (x_{n_j}^{1}, x_{n_j}^{2}, ..., x_{n_j}^{m})$, y repitiendo el argumento resulta que $x_{n_j}^{2}$ tiene una subsucesión $x_{n_{j_l}}^{2} \rightarrow x^{2}$ y a su vez $x_{n_{j_l}}^{1} \rightarrow x^{1}$ por que toda subsucesión de una sucesión convergente converge al mismo límite. Finalmente utilizando este argumento en las $m$ coordenadas se sigue que existe una subsucesión $x_{n_j_{..._h}} \rightarrow x$ y como $K$ es cerrado se tiene que $x \in K$ y por lo tanto se concluye que $K$ es compacto.
+\end{proof}
+
+\begin{theorem}
+    Sea $(E, d)$ un espacio métrico, entonces $K \subset E$ es un compacto si y solo si todo $A \subset K$ infinito tiene un punto de acumulación en $K$.
+\end{theorem}
+\begin{proof}
+    $\Rightarrow)$ Sea $A \subset K$ un conjunto infinito, luego existe $B \subset A$ numerable y por ende una sucesión contenida en $B$ y que por tanto está contenida en $A$, es decir, $\exists (x_n) \subset A$ una sucesión de elementos distintos. Como $K$ es compacto, $\exists (x_{n_j}) \rightarrow x \in K$, y justamente porque tiene una sucesión de elementos distintos en $A$ que convergen a él, se sigue que $x$ es un punto de acumulación de $A$. \\
+    $\Leftarrow)$ Sea $(x_n) \subset K$, considero al conjunto $A = \{ x_n, n \in \mathbb{N}\}$, si $A$ es finito se sigue que la sucesión es eventualmente constante y por lo tanto tiene una subsucesión constante que converge a ese mismo elemento, es decir, $\exists n_0 \in \mathbb{N} : x_n = n_0, \forall n \geq n_1, n_1 \in \mathbb{N}$ y en este caso se sigue que $K$ es compacto. Si por el contrario $A$ es infinito $\exists (x_{n_j}) \rightarrow x \in K$, donde $x$ es el punto de acumulación, y por ende en este caso también se concluye que $K$ es compacto.
+\end{proof}
+
+\begin{definition}
+    Sea $(E, d)$ un espacio métrico y $K \subset E$ un conjunto. Un cubrimiento por abiertos de $K$ es una familia $(V_i)_{i\in I}$, $V_i \subset E, \forall i \in I$ de subconjuntos abiertos de $E$ tal que 
+    \[
+        K \subset \cup_{i\in I} V_i
+    \]
+\end{definition}
+
+\begin{definition}
+    Sea $(E, d)$ un espacio métrico y $K \subset E$ un conjunto. Si $(V_i)_{i\in I}$ forma un cubrimiento de $K$ y existe $i_1, i_2, ..., i_N \in I$ tal que
+    \[
+        K \subset V_{i_1} \cup V_{i_2} \cup ... \cup V_{i_N}
+    \]
+    Se dice que $(V_{i_k})_{k=1}^{N}$ es un subcubrimiento finito de $(V_i)_{i\in I}$
+\end{definition}
+
+En la sección de funciones continuas vimos que existen muchas equivalencias para la definición de continuidad en un punto para una función y esto nos dice que a priori uno podría haber empezado con la definición que más le guste y deducir el resto de equivalencias a partir de esta. En general se empieza por la del epsilon-delta porque es la que probablemente más incialmente se ve, pero nada impide cambiar eso. De la misma forma en esta sección introdujimos la compacidad como una propiedad definida por la existencia de subsucesiones convergentes, pero sin embargo, la definición más común y que más le gusta a los matemáticos es la de subcubrimiento finito por abiertos, que se presenta a continuación. No cambia nada en las construcciones que hicimos hasta ahora, pero es importante saberlo.
+
+\begin{theorem}
+    Sea $(E, d)$ un espacio métrico, entonces $K \subset E$ es compacto si y solo si todo cubrimiento de $K$ por abiertos admite un subcubrimiento finito.
+\end{theorem}
+
+\begin{proof}
+    $\Rightarrow)$ Sea $(V_i)_{i\in I}$ un cubrimiento de $K$, y supongo que no admite un subcubrimiento finito. En particular considero un subcubrimiento $(V_{i_j})$ tal que $V_{i_j} \cap K \neq \emptyset, \forall i_j \in I$ y también $\forall i_j, \exists x \in V_{i_j} : x \not\in V_{i_k}, \forall k \neq j$, es decir del cubrimiento elijo un subcubrimiento donde todos los conjuntos tengan al menos algún elemento de $K$ y que no haya conjuntos contenidos en otros. Esto sigue siendo un cubrimiento de $K$ y ahora considero $(x_n) \subset K$ tal que $x_n \in V_{i_n}, x_i \neq x_j, \forall i \neq j$. Ahora como $K$ es compacto se sigue $\exists (x_{n_j}) \rightarrow x \in K$ y digamos sin perdida de generalidad que $x \in V_{i_l}$, como $V_{i_l}$ es abierto $\exists\epsilon > 0 : B(x, \epsilon) \subset V_{i_l}$ y como la sucesión converge a ese punto se sigue que $\exists n_0 : x_{n_j} \in B(x, \epsilon), \forall j \geq n_0$, absurdo! porque solo hay un punto en la sucesión que pertenece a ese conjunto. Por lo tanto el cubrimiento sí admite un subcubrimiento finito.\\
+    $\Leftarrow)$ Supongamos que no fuera el caso, luego utilizando la equivalencia de compacto para subconjuntos infinitos, se tiene que $\exists A \subset K$ tal que $A$ es infinito y $A' = \emptyset$, es decir $\forall x \in K, \exists r_x : A \cap B(x, r_x)$ es finito. Ahora por hipótesis, como $K \subset \cup_{x\in K} B(x, r_x)$ existe un subcubrimiento finito tal que $K \subset \cup_{n=1}^{N} B(x_n, r_{x_n})$. Pero entonces $A = K \cap A \subset \cup_{n=1}^{N} B(x_n, r_{x_n}) \cap A = \cup_{n=1}^{N} (B(x_n, r_{x_n}) \cap A)$, pero este último conjunto es una unión finita de conjuntos finitos, es decir $\#A < \aleph_0$, absurdo! puesto que $A$ es un conjunto infinito. Finalmente se concluye que $K$ es compacto.
+
+\end{proof}
+
+\begin{theorem}
+    Las funciones continuas preservan la compacidad. Sean $(E, d)$, $(E', d')$ espacios métricos y sea $f: E \rightarrow E'$ una función continua. Si $K \subset E$ es un conjunto compacto, entonces $f(K)$ es compacto en $E'$
+\end{theorem}
+
+\begin{proof}
+    Sea $(y_n) \subset f(K)$ una sucesión, para cada $y_n, \exists x_n \in E : f(x_n) = y_n$, donde esto genera una sucesión $(x_n) \subset K$, y como $K$ es compacto existe $(x_{n_j}) \rightarrow x \in K$ y como $f$ es continua preserva la convergencia de sucesiones y se tiene que $f(x_{n_j}) \rightarrow f(x) \in f(K)$ y por lo tanto la sucesión original $(y_n)$ posee una subsucesión $(y_{n_j}) \rightarrow y = f(x) \in f(K)$, de lo que se concluye que $f(K)$ es compacto.
+\end{proof}
+
+Este resultado es muy útil combinado con el teorema de Heine-Borel, porque nos va a decir que las funciones de la pinta $f: E \rightarrow \mathbb{R}^{n}$ con $E$ un conjunto compacto van a alcanzar un minimo y un máximo 
+
+\begin{prop}
+    Sea $K \subset E$ un conjunto compacto y $f: E \rightarrow \mathbb{R}^{m}$, entonces
+        \begin{itemize}
+            \item $f$ es acotada en $K$, existe una bola que contiene a todos los valores que toma la función en ese conjunto
+            \item $f$ alcaza su máximo y su mínimo en $k$
+        \end{itemize}
+\end{prop}
+
+\begin{theorem}
+    Sean $(E, d), (E', d')$ espacios métricos y sea $f: E \rightarrow E'$, si $f$ es continua y $E$ es un conjunto compacto, entonces $f$ es uniformemente continua.
+\end{theorem}
 \section{Espacios Normados}
 
 \section{Sucesiones de Funciones}
