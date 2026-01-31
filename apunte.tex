@@ -2,9 +2,10 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{amsmath}
-\newtheorem{theorem}{Teorema}
-\newtheorem{definition}{Definición}
-\newtheorem{prop}{Propiedad}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{definition}{Definición}[section]
+\newtheorem{prop}{Propiedad}[section]
+\newtheorem{notacion}{Notación}[section]
 \begin{document}
 
 
@@ -299,7 +300,109 @@ Dado un conjunto $A \subset E$, se dice que es acotado si existen $x\in E, r>0$ 
 \end{definition}
 
 \section{Funciones Continuas}
-    El primer acercamiento que diría todos tienen al concepto de funciones continuas está capturado en la frase "las funciones que no dan salto" o "se pueden dibujar sin levantar el lápiz", esto está bien para el contexto donde se presenta, pero a esta altura ya vimos lugares donde esa definición no sirve, por ejemplo una función $f: \mathbb{R} \rightarrow \mathbb{R}^2$
+    El primer acercamiento que diría todos tienen al concepto de funciones continuas está capturado en la frase "las funciones que no dan salto" o "se pueden dibujar sin levantar el lápiz", esto está bien para el contexto donde se presenta, pero a esta altura ya vimos lugares donde esa definición no sirve, por ejemplo una función $f: \mathbb{R} \rightarrow \mathbb{R}^2$. Por eso se trabaja con la definición de epsilon-delta, y en esta sección se van a presentar todo el resto de herramientas iniciales para trabajar con este tipo de funciones en todos los espacios métricos. 
+
+\begin{definition}
+    Una función $f: E \rightarrow E'$ se dice continua en el punto $x \in E$ si para cada $\epsilon > 0$ existe $\delta > 0 $ tal que
+    \[
+        y \in E, d(x, y) < \delta \Rightarrow d'(f(x), f(y)) < \epsilon
+    \]
+    O equivalentemente utilizando la definición topológica, para cada $\epsilon > 0$ existe $\delta > 0$ tal que 
+    \[
+        f(B(x, \delta)) \subset B(f(x), \epsilon)
+    \]
+\end{definition}
+
+Honestamente para mi esta es la mejor equivalencia de continuidad para una función, que las sucesiones convergentes, convergen a donde uno esperaría en la imagen. 
+\begin{theorem}
+    Una función $f: E \rightarrow E'$ es continua en $x$ si y solo si transforma cualquier sucesión convergente a $x$ en una sucesión convergente a $f(x)$
+\end{theorem} 
+\begin{proof}
+    $\Rightarrow)$ $f$ es continua y sea $(a_n)_{n \in \mathbb{N}} \subset E$ una sucesión tal que $\lim_{n\to\infty} a_n = a \in E$. Dado $\epsilon > 0$, como $f$ es continua en particular lo es en $x$ y por lo tanto existe $\delta > 0$ tal que $f(B(x, \delta)) \subset B(f(x), \epsilon)$. A su vez como la sucesión converge a $x$ existe un $n_0$ tal que $x_n \in B(x, \delta), \forall n \geq n_0$. Uniendo ambas partes resulta que si $n \geq n_0$ entonces $x_n \in B(x, \delta) \Rightarrow f(x_n) \in f(B(x, \delta)) \Rightarrow f(x_n) \in B(f(x), \epsilon)$ y por lo tanto $\lim_{n\to\infty}f(x_n) = f(x) \\$
+
+    $\Leftarrow)$ Supongo que $f$ no es continua, luego $\exists \epsilon > 0 : \forall \delta > 0, f(B(x, \delta)) \not\subset B(f(x), \epsilon)$, por lo tanto para cada $n \in \mathbb{N}$ se cumple que $\exists y_n : y_n \in B(x, \frac{1}{n}), y_n \not\in B(f(x), \epsilon)$ , pero esto significa que $y_n \rightarrow x, f(y_n) \not\rightarrow f(x)$, lo cual es un absurdo por hipótesis. Por lo tanto se concluye que $f$ es continua.
+\end{proof}
+
+Incluir 2 imagenes, una con una función discontinua en el plano, y una de una superficie que muestre que toda sucesión converge a donde uno espera.
+
+\begin{notacion}
+    Dada una función $f: E \rightarrow E'$ y un conjunto $A \subset E'$ se define la preimagen de A como
+    \[
+        f^{-1}(A) := \{ x \in E : f(x) \in A \}
+    \]
+    Es importante notar que esto NO es la inversa de la función porque esta podría no existir.
+
+\end{notacion}
+
+Esta es la definición de adultos de continuidad y la que les gusta a los matemáticos, todavía no encontré el amor que se le tiene, pero sí hay que reconocer que es una herramienta útil.
+
+\begin{theorem}
+    Una función $f: E \rightarrow E'$ es continua si y sólo si la preimagen de todo abierto de $E'$ es un abierto en $E$.
+\end{theorem}
+\begin{proof}
+$\Rightarrow)$ $f$ es continua y sea $A' \subset E'$ un conjunto abierto, y se define $A = f^{-1}(A')$. Sea $x \in A$, como $A'$ es un conjunto abierto y $f(x) \in A'$ entonces $\exists\epsilon$ tal que $B(f(x), \epsilon) \subset A'$. Luego como $f$ es continua $\exists\delta>0 : f(B(x, \delta)) \subset B(f(x), \epsilon) \subset A' \Rightarrow B(x, \delta) \subset A$, y por lo tanto se tiene que $x$ es un punto interior de $A$, y como $x$ era un punto arbitrario se concluye que $A$ es un conjunto abierto. \\
+
+$\Leftarrow)$ Sea $x \in E$ un punto, es claro que $f(x) \in E'$ y dado $\epsilon>0$ considero el abierto de la bola dado por $B(f(x), \epsilon)$, luego por hipótesis, $f^{-1}(B(f(x), \epsilon)$ es un abierto y por ende dado un punto interior $x$, $\exists\delta>0 : B(x, \delta) \in f^{-1}(B(f(x), \epsilon) \Rightarrow f(B(x, \delta) \subset B(f(x), \epsilon)$ y por lo tanto $f$ es continua.
+\end{proof}
+
+\begin{theorem}
+    Una función $f: E \rightarrow E'$ es continua si y solo si para todo $A \subset E$ se cumple $f(\overline{A}) \subset \overline{f(A)}$. 
+\end{theorem}
+\begin{proof}
+    $\Rightarrow)$ Sea $y \in f(\bar{A})$, entonces $\exists x\in \bar{A} : f(x) = y$, y además por pertenecer a la clausura se tiene que $\exists (x_n)_{n\in \mathbb{N}} \subset A: x_n \rightarrow x$. Luego ya que $f$ es continua, $f(x_n) \subset f(A) : f(x_n) \rightarrow f(x)$, y nuevamente, como existe una sucesión en el conjunto que converge a un punto, se deduce que ese punto pertenece a la clausura y por ende $f(x) \in \overline{f(A)} \Rightarrow y \in \overline{f(A)} \Rightarrow f(\bar{A}) \subset \overline{f(A)}$ \\
+
+    $\Leftarrow)$ Sea $F \subset E'$ un conjuto cerrado y sea $A = f^{-1}(F)$. Luego $\bar{A} = \overline{f^{-1}(F)} \Rightarrow f(\bar{A}) \subset \overline{f(A)} \subset \overline{F} = F$. Con esto se tiene que $f(\bar{A}) \subset F \Rightarrow f^{-1}(f(\bar{A})) \subset f^{-1}(F) \Rightarrow \bar{A} \subset A$. Por lo tanto $A$ es un conjunto cerrado, es decir la preimagen de un cerrado cualquiera es un conjunto cerrado, esto quiere decir que $f$ es continua.
+\end{proof}
+
+Con este último teorema se completan las equivalencias básicas de continuidad que van a ser las herramientas que vamos a tener a la hora de atacar problemas. Pero hay un concepto importante más que ver antes de terminar la sección y este es: continuidad uniforme. Además nos va a servir en las secciónes siguientes cuando profundicemos en sucesiones. La idea no es muy complicada, ya vimos cuando una función es continua, pero ahora vamos a ver que hay puntos donde es más "inmediatamente continua" que en otros. Por ejemplo, si pensamos en $f: (0, +\infty) \rightarrow \mathbb{R}, f(x) = \frac{1}{x}$, es claro que $f$ es continua, pero dado un epsilon, mientras más cerca del $0$ fijemos al $x$ más difícil va a ser encontrar al $\delta$ que sirva. (REVISAR TEXTO)
+
+\begin{definition}
+    Una funcion $f: E \rightarrow E'$ se dice uniformemente continua si dado $\epsilon > 0$ existe $\delta > 0$ tal que:
+    \[
+        d(x, y) < \delta \Rightarrow d'(f(x), f(y)) < \epsilon, \forall x \in E
+    \]
+    O equivalentemente, en su versión topológica:
+    \[
+        f(B(x, \delta)) \subset B(f(x), \epsilon), \forall x\in E
+    \]
+\end{definition}
+
+\begin{prop}
+   Sea $f: E \rightarrow E'$. Entonces, $f$ NO es uniformemente continua si y solo si existen $\epsilon_0$ y sucesiones $(x_n)_n, (y_n)_n \subset E$:
+   \[
+       d(x_n, y_n) \rightarrow 0, d(f(x_n), f(y_n)) \geq \epsilon_0
+   \]
+\end{prop} 
+
+Para el manejo de esta definición la siguiente proposición es muy importante saber negar cuantificadores, porque el problema puede parecer más complicado de lo que es si no se hace la negación correcta. 
+
+\begin{proof}
+    $\Rightarrow)$ Si $f$ no es uniformemente continua, $\exists\epsilon_0 > 0, \forall\delta>0, \exists x\in E : f(B(x, \delta)) \not\subset B(f(x),\epsilon) \Rightarrow \exists y \in E : d(x, y) <\delta, d'(f(x), f(y)) \geq \epsilon_0$. Por lo tanto para cada $n \in \mathbb{N}$ se puede fijar $\delta = \frac{1}{n}$ y se obtienen dos sucesiones $(x_n), (y_n)$ que cumplen $d(x_n, y_n) < \frac{1}{n}, d(f(x_n), f(y_n)) \geq \epsilon_0$. Es decir:
+    \[
+        d(x_n, y_n) \rightarrow 0, d(f(x_n), f(y_n)) \geq \epsilon_0
+    \]
+    \\
+    $\Leftarrow)$ Por hipótesis $\exists \epsilon_0 > 0, \forall\delta > 0, \exists n_0 \in \mathbb{N} : f(B(x_{n_0}, \delta)) \not\subset B(f(x_{n_0}), \epsilon)$, puesto que $\exists y_{n_0} \in B(x_{n_0}, \delta) : y_{n_0} \not\in B(f(x_{n_0}), \epsilon)$ y por lo tanto se concluye que $f$ no es uniformemente continua.
+\end{proof}
+
+\begin{definition}
+    Una función $f: E \rightarrow E'$ se llama homeomorfismo si es biyectiva, continua y su inversa es continua. Consecuentemente dos espacios métricos $(E, d), (E', d')$ se dicen homeomorfos si existe un homeomorfismo $f: E \rightarrow E'$
+\end{definition}
+
+Si uno refresca rápidamente la etimología de homeomorfismo se da cuenta que se compone de dos raíces: homoios y morphe. Homoios significa igual o semejante y morphe significa forma o figura. Entonces la pregunta natural para hacerse es: ¿en qué sentido son iguales estos dos espacios? Y la respuesta es en el topológico, porque existe una correspondencia entre los conjuntos de los dos espacios.
+
+\begin{prop}
+    Si $E, E'$ son espacios métricos homeomorfos, entonces hay una correspondencia entre los abiertos de $E$ y $E'$
+\end{prop}
+\begin{proof}
+    Si $U \subset E'$ es un conjunto abierto, entonces $V = f^{-1}(U)$ es un abierto ya que la función es continua, y además por ser biyectiva se cumple que $f(V) = U$. Análogamente, si $W \subset E$ es un abierto, entonces $Z = f(W)$ es un abierto por ser la inversa de f una función continua, y además por ser biyectiva se tiene que $f^{-1}(Z) = W$. Con esto probamos que hay una biyección entre los abiertos de $E$ y $E'$
+\end{proof}
+
+\begin{definition}
+    Si $f: E \rightarrow E'$ satisface $d(x, y) = d(f(x), f(y))$ se dice que $f$ es una isometría.
+\end{definition}
+
+Nuevamente tiene sentido preguntarnos por la etimología, pero en este caso es un poco más obvia. Iso proviene de isos, que significa igual o lo mismo y metría viene de metron, que significa medida. Por lo tanto isometría significa de igual medida. Es decir, una isometría es una función que respeta y no altera la distancia entre puntos y las de sus imagenes.
 
 \section{Conjuntos Compactos}
 
