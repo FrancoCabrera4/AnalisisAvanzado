@@ -2,10 +2,12 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \newtheorem{theorem}{Teorema}[section]
 \newtheorem{definition}{Definición}[section]
 \newtheorem{prop}{Propiedad}[section]
 \newtheorem{notacion}{Notación}[section]
+\newtheorem{colorario}{Colorario}[section]
 \begin{document}
 
 
@@ -485,9 +487,136 @@ Este resultado es muy útil combinado con el teorema de Heine-Borel, porque nos 
 \begin{theorem}
     Sean $(E, d), (E', d')$ espacios métricos y sea $f: E \rightarrow E'$, si $f$ es continua y $E$ es un conjunto compacto, entonces $f$ es uniformemente continua.
 \end{theorem}
+\begin{proof}
+    Procedo por el absurdo, supongo que $f$ no es uniformemente continua. Por lo tanto $\exists (x_n), (y_n) \subset E : d(x_n, y_n) \rightarrow 0, d'(f(x_n), f(y_n)) \geq \epsilon_0, \epsilon_0$, para algún $\epsilon_0 > 0$. Como $E$ es un compacto, $\exists (x_{n_j})$ subsucesión convergente, de forma que se sigue cumpliendo $d(x_{n_j}, y_{n_j}) \rightarrow 0$, análogamente $\exists (y_{n_{j_k}})$ convergente, de forma que $d(x_{n_{j_k}}, y_{n_{j_k}}) \rightarrow 0$, pero como ambas sucesiones convergen, por álgebra de límites podemos reemplazar por el límite de cada sucesión, es decir, $x_{n_{j_k}} \rightarrow x, y_{n_{j_k}} \rightarrow y \Rightarrow \lim_{k\to\infty} d(x_{n_{j_k}}, y_{n_{j_k}}) = 0 = d(x, y) \Rightarrow x = y$. Ahora, como $f$ es continua respeta la convergencia de sucesiones y por ende $d'(f(x_{n_{j_k}}), f(y_{n_{j_k}})) \rightarrow d'(f(x), f(y)) = 0 \geq \epsilon_0$, absurdo! Se concluye, entonces, que $f$ es uniformemente continua.
+\end{proof}
 \section{Espacios Normados}
 
+Nos encontramos ahora con otro tipo especial de espacio que es muy común de ver y este es el espacio normado, que como uno esperaría va a aparecer casi siempre cuando trabajemos con $\mathbb{R}^{n}$. La característica fundamental a recordar de estos espacios es que cuentan con una noción de escalar que la norma va a sacar a fuera. 
+
+\begin{definition}
+    Sea $E$ un espacio vectorial (sobre $\mathbb{R}^{n}$ o $\mathbb{C}^{n}$. Una función $\| . \|: E \rightarrow [0, +\infty]$ es una norma si verifica las siguientes propiedades
+    \begin{itemize}
+        \item $\| x + y \| \leq \| x \| + \| y \|$
+        \item $\| \lambda x \| \leq | \lambda | \| x \|$
+        \item $\| x \| = 0 \iff x = 0$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Un espacio vectorial con una norma $(E, \| . \|)$ se llama un espacio normado
+\end{definition}
+
+\begin{definition}
+    Un espacio normado que es completo con la distancia $d(x, y) = \| x - y \|$ se llama espacio de Banach.
+\end{definition}
+
+\begin{definition}
+    Dadas dos normas $\| . \|_1, \| . \|_2$ en un espacio vectorial, se dicen equivalentes si existen $c, \bar{c} > 0$ tales que
+    \[
+        c\| x \|_2 \leq \| x \|_1 \leq \bar{c}\| x \|_2
+    \]
+\end{definition}
+
+\begin{prop}
+    La equivalencia de normas es una relación de equivalencia.
+\end{prop}
+\begin{proof}
+    Sean $\| . \|_1, \| . \|_2, \| . \|_3$ normas en un espacio métrico tales que $\| . \|_1 \sim \| . \|_2, \| . \|_2 \sim \| . \|_3$ \\
+    La relación es reflexiva puesto que $1\| x \|_1 \leq \| x \|_1 \leq 1\| x \|_1$ \\
+    Es simétrica puesto que si existen $c, \bar{c} > 0 : c\| x \|_2 \leq \| x \|_1 \leq \bar{c}\| x \|_2$, entonces $\frac{1}{\bar{c}}\| x \|_1 \leq \| x \|_2 \leq \frac{1}{c}\| x \|_1$ \\
+    Es transitiva puesto que si existen $c, \bar{c}, c_1, \bar{c_1}$ tal que $c\| x \|_2 \leq \| x \|_1 \leq \bar{c}\| x \|_2$, $c_1\| x \|_2 \leq \| x \|_3 \leq \bar{c_1}\| x \|_2$, entonces se tiene que $\frac{c_1}{\bar{c}}\| x \|_1 \leq \| x \|_3 \leq \frac{\bar{c_1}}{c}\| x \|_1$ \\
+    Por lo tanto se concluye que la relación es de equivalencia.
+\end{proof}
+
+\begin{theorem}
+    Todas las normas son equivalentes en $\mathbb{R}^{n}$
+\end{theorem}
+\begin{proof}
+    Ya vimos que la relación de equivalencia de normas es una relación, justamente, de equivalencia, así que para demostrar este teorema basta con demostrar que toda norma es equivalente a una específica y se termina la demostración. La norma elegida para esto va a ser la $\| . \|_1$ \\
+Sea $\| . \|_t$ una norma arbitraria y $x = x_1e_1 + x_2e_2 + ... + x_3e_3$, luego se tiene que $\| x \|_t = \| x_1e_1 + x_2e_2 + ... + x_ne_n \|_t \leq |x_1|\|e_1\|_t + |x_2|\|e_2\|_t + ... + |x_n|\| e_n \|_t \leq max\{ e_i, 1 \leq i \leq n\}(|x_1| + |x_2| + ... + |x_n|) = K\| x \|_1$ \\
+Por otro lado, defino $g: (\mathbb{R}^{n}, \| . \|_1) \rightarrow (\mathbb{R}, | . |)$, resulta que $g$ es continua puesto que $|g(x) - g(y)| = | \| x \|_t - \| y \|_t | \leq \| x - y \|_t \leq K\| x - y \|_1$. Sea $S = \{ x \in \mathbb{R}^{n} : \| x \|_1 = 1 \}$, por el teorema de Heine-Borel $S$ es compacto. Y como $f$ es continua, $f(S)$ alcanza mínimo, sea este mínimo $m$, luego si $x \in \mathbb{R}^{n} \setminus \{ 0 \} \Rightarrow \frac{x}{\| x \|_1} \in S \Rightarrow \| \frac{x}{\| x \|_1} \|_t \geq m \Rightarrow \| x \|_t \geq m\| x \|_1$ y por lo tanto $\| x \|_t \sim \| x \|_1$, el caso donde $x = 0$ es indistinto porque todas las normas, por definición, valen $0$.
+\end{proof}
+
+\begin{definition}
+    Dados dos espacios vectoriales $V, W$ y una función $f: V \rightarrow W$, se dice que $f$ es un isomorfismo si $f$ es una transformación lineal biyectiva. En este caso se dice que los espacios $V, W$ son isomorfos. Este ocurre si y solo si ambos espacios tienen la misma dimensión.
+\end{definition}
+
+\begin{prop}
+    Si $E$ es un espacio normado de dimensión $n \in \mathbb{N}$, entonces existen un isomorfismo lineal de $T: E \rightarrow \mathbb{R}^{n}$ y una norma $\mathbb{R}^{n}$ tal que $T$ es una isometría.
+\end{prop} 
+
+\begin{proof}
+    Como los espacios tienen la misma dimensión, $\exists T: E \rightarrow \mathbb{R}^{n}$ tal que $T$ es un isomorfismo. Sea $z \in \mathbb{R}^{n}$ se define $\| z \|_0 := \| T^{-1}(z) \|_E$. Vamos a demostrar que esto define a una norma y que esta norma cumple ser una isometría. \\
+    Si $z=0 \Rightarrow \| 0 \|_0 = \| T^{-1}(0) \|_E = \| = \| 0 \|_E = 0$, puesto que toda transformación lineal manda el $0$ al $0$ y toda norma evaluada en $0$ da $0$. Ademas como $T$ es una biyección no hay otro vector que tenga como imagen al $0$, es decir $\| z \|_0 = 0 \iff z = 0$. \\
+    $\| \alpha z \|_0 = \| T^{-1}(\alpha z) \|_E = \| \alpha T^{-1}(z) \|_E = |\alpha|\|T^{-1}(z)\|_E = |\alpha|\|z_0\|$, es decir la función saca escalares por fuera. \\
+
+    $\| x + y \|_0 = \|T^{-1}(x + y)\|_E = \|T^{-1}(x) + T^{-1}(y)\|_E \leq \|T^{-1}(x)\|_E + \|T^{-1}(y)\|_E \leq \|x\|_0 + \|y\|_0$, por lo que se concluye que $T$ es una norma. \\
+
+    Finalmente veamos que es una isometría, $d_0(T(x), T(y)) = \| T(x) - T(y) \|_0 = \| T^{-1}(T(x) - T(y))\|_E = \|T^{-1}(T(x)) - T^{-1}(T(y))\|_E = \| x - y \|_E$
+\end{proof}
+
+(REVISAR ESTA DEMO)
+
+\begin{colorario}
+    Todo espacio de normado de dimensión finita es completo, es decir es un espacio de Banach
+\end{colorario}
+
+\begin{colorario}
+    En un espacio normado de dimensión finita, los conjuntos cerrados y acotados son compactos.
+\end{colorario}
+
+\begin{definition}
+    Sean $E, F$ dos espacios normados sobre $\mathbb{R}$. Una aplicación $T: E \rightarrow F$ se llama operador lineal continuo si:
+    \begin{itemize}
+        \item Es una transformación lineal (u operador lineal)
+        \item Es una función continua con las métricas que definen las normas
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Decimos que un operador lineal $T: E \rightarrow F$ es acotado si existe $c > 0$ tal que $\|T(x)\|_F \leq c\|x\|_E, \forall x\in E$. Equivalentemente, $T$ es acotado si $sup_{x \in B(0, 1)} \| T(x) \|_F < \infty$
+\end{definition}
+
+\begin{theorem}
+    Sean $E, F$ espacios normados, y $T: E \rightarrow F$ un operador lineal. Son equivalentes: 
+    \begin{itemize}
+        \item $T$ es continua en el origen
+        \item $T$ es continua en algún punto
+        \item $T$ es continua
+        \item $T$ es uniformemente continua
+        \item $T$ está acotado
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    
+    Si $B_E(x, r) = \{y\in E : \| x - y \|_E < r \}$, sea $y = x + y'$, entonces $B_E(x, r) = \{y\in E : \| x - y \|_E = \| x - (x + y') \|_E = \| y' \|_E < r \} = x + B_E(0, r)$
+
+
+\end{proof}
+
 \section{Sucesiones de Funciones}
+
+Ya a está altura uno debería estar bastante cómodo trabajando con sucesiones, debería entender las nociones de límites, las propiedades de álgebra de límites, los teoremas más imporantes, etc. Sin embargo, hasta ahora solo trabajamos con las sucesiones más intuitivas que uno entiende, las de numeritos, y después se avanzó hacia sucesiones más abstractas en espacios métricos. Sin embargo uno puede analizar sucesiones de cualquier tipo de objecto, siempre y cuando tenga la noción de distancia entre ellos, y un objeto en particular que nos va a interesar estudiar en este contexto van a ser las funciones. En los primeros momentos es un poco confuso porque tratar a las funciones como puntos en un espacio es un concepto chocante al principio.
+
+\begin{definition}
+    La sucesión $(f_n)$ de funciones de $A \rightarrow Y$ converge puntualmente a $f: A \rightarrow Y$ si para todo $x \in A$ se cumple: 
+    \[
+        \lim_{n\to\infty}f_n(x) = f(x)
+    \]
+    O equivalentemente, $\forall x \in A, \forall \epsilon > 0, \exists n_0 \in \mathbb{N} : d'(f_n(x), f(x)) < \epsilon, \forall n \geq n_0$. Y se suele notar $f_n \rightarrow f$
+\end{definition}
+
+\begin{definition}
+    La sucesión $(f_n)$ de funciones de $A \rightarrow Y$ converge uniformemente a $f: A\rightarrow Y$ si dado $\epsilon > 0$, existe $n_0 \in \mathbb{N}$ tal que si $n\geq n_0$ se tiene que:
+    \[
+        d'(f_n(x), f(x)) < \epsilon
+    \]
+    Para todo $x \in A$. O equivalentemente $\forall \epsilon > 0, \exists n_0 \in \mathbb{N}, \forall x \in A : d'(f_n(x), f(x)) < \epsilon, \forall n \geq n_0$. Y se suele notar $f_n \rightrightarrows f$
+\end{definition}
+
+(FUNDAMENTAL INCLUIR IMAGENES DE EJEMPLO ACÁ)
 
 \section{Teoría de la medida}
 
