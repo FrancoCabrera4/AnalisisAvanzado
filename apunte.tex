@@ -618,6 +618,116 @@ Ya a está altura uno debería estar bastante cómodo trabajando con sucesiones,
 
 (FUNDAMENTAL INCLUIR IMAGENES DE EJEMPLO ACÁ)
 
+\begin{theorem}
+    \label{thm:continuous-function-convergence}
+    Si una sucesión $(f_n)$ de funciones continuas de $X$ en $Y$ converge uniformemente a $f: X \rightarrow Y$, entonces $f$ es continua.
+\end{theorem}
+
+\begin{proof}
+    Dado $\epsilon > 0$, existe $n_0 \in \mathbb{N} : d'(f(x) - f_n(x)) < \frac{\epsilon}{3}, \forall n \geq n_0, \forall x \in X$ y en particular $f_{n_0}$ es continua, por lo que $\exists \delta > 0 : d(x, x_0) < \delta \Rightarrow d'(f_{n_0}(x), f_{n_0}(x_0)) < \frac{\epsilon}{3}$. Por lo tanto si $d(x, x_0) < \delta \Rightarrow d'(f(x), f(x_0)) \leq d'(f(x), f_{n_0}(x)) + d'(f_{n_0}(x), f(x_0)) \leq d'(f(x), f_{n_0}(x)) + d'(f_{n_0}(x), f_{n_0}(x_0)) + d'(f_{n_0}(x_0), f(x_0))< \frac{\epsilon}{3} + \frac{\epsilon}{3} + \frac{\epsilon}{3} = \epsilon$
+\end{proof}
+
+\begin{prop}
+    Sea $f_n \rightrightarrows f$, con $f_n, f: [a, b] \rightarrow \mathbb{R}$ funciones continuas, entonces:
+    \[
+        \lim_{n\to\infty}\int_{a}^{b} f_n(t)dt = \int_{a}^{b} f(t)dt
+    \]
+\end{prop}
+\begin{proof}
+    Dado $\epsilon > 0, \exists n_0 : | f_n(x) - f(x) | < \frac{\epsilon}{|b - a|}, \forall n \geq n_0, \forall x \in [a, b]$. Además se cumple:
+    \begin{align} 
+        | \int_{a}^{b} f_n(t)dt - \int_{a}^{b} f(t)dt | = | \int_{a}^{b}[f_n(t) - f(t)]dt | \\ \leq \int_{a}^{b} | f_n(t) - f(t) |dt < \int_{a}^{b} \frac{\epsilon}{|b-a|}dt = \frac{\epsilon (b - a)}{(b - a)} = \epsilon
+    \end{align} 
+    De donde se conclye, puesto que $\epsilon$ es arbitrario, que $\lim_{n\to\infty} \int_{a}^{b} f_n(t)dt = \int_{a}^{b} f(t)dt$
+\end{proof}
+
+\begin{prop}
+    Sean $f_n$ funciones de clase $C^{1}$ en $[a, b]$ tal que $f_n \rightarrow f$ y $f_n' \rightrightarrows g$. Entonces, $f$ es derivable y $f' = g$
+\end{prop}
+
+\begin{proof}
+    Las $f_n$ son de clase $C^{1}$ por lo que aplicando el TFC se tiene que $f_n(x) - f_n(a) = \int_{a}^{x} f_n'(t)dt$, aplicando límite a ambos términos se llega a que $f(x) - f(a) = \int_{a}^{x} g(t)dt$, y nuevamente aplicando el TFC se derivan ambos términos y se obtiene que $f'(x) = g(x)$
+\end{proof}
+
+\begin{definition}
+    Una sucesión $(f_n)$ de funciones de $A \rightarrow Y$ es uniformemente de Cauchy si dado $\epsilon > 0$, existe $n_0 \in \mathbb{N}$ tal que $d'(f_n(x), f_m(x)) < \epsilon, \forall n, m \geq n_0, \forall x \in A$
+\end{definition}
+
+\begin{theorem}
+    Si la sucesión $(f_n)$ de funciones de $A \rightarrow \mathbb{R}$ es uniformemente de Cauchy, entonces converge uniformemente a una función $f: A \rightarrow \mathbb{R}$
+\end{theorem}
+\begin{proof}
+    Si fijamos $x \in A$ se obtiene una sucesión $(f_n(x))_{n\in \mathbb{N}}$ de números reales que es de Cauchy y por lo tanto converge, ya que $\mathbb{R}$ es un espacio métrico completo. Y como $x$ era arbitrario se sigue que $\exists f : \lim_{n\to\infty} f_n = f$ \\
+    Dado $\epsilon > 0, \exists n_0 : | f_n(x) - f_m(x) | < \frac{\epsilon}{2}n, \forall n, m \geq n_0, \forall x\in A$. Si se fija $n$ y se toma el límite cuando $m \rightarrow \infty$ se obtiene que $|f_n(x) - f(x)| < \frac{\epsilon}{2} < \epsilon, \forall n \geq n_0, \forall x\in A$, y por lo tanto $f_n$ converge uniformememente a $f$.
+\end{proof}
+
+La primera vez que se ve esta prueba es un poco rara, porque suena "dudoso" la veracidad de fijar el $n$ y tomar el límite respecto a otra variable, y en general en muchas otras construcciones este argumento no va a valer. Sin embargo, acá es válido porque el $n$ y el $m$ son independientes.
+
+\begin{prop}
+    Sea $K$ un conjunto compacto y $C(K) = \{ f: K \rightarrow \mathbb{R}, f \text{continua}\}$. Sea $(f_n) \subset C(K)$, entonces $(f_n)$ es uniformemente de Cauchy si y solo si $(f_n)$ es de cauchy en $\| . \|_{\infty}$
+\end{prop}
+
+\begin{proof}
+    Si $(f_n)$ es uniformemente de Cauchy, $\forall \epsilon > 0, \exists n_0 : | f_n(x) - f_m(x) | < \epsilon, \forall n, m \geq n_0, \forall x \in K \iff \| f_n - f_m \|_{\infty} < \epsilon \iff (f_n)$ es de Cauchy con $\| . \|_{\infty}$, y como todas las implicaciones son si y solo si se demostró lo pedido.
+\end{proof}
+
+\begin{theorem}
+    El espacio métrico dado por $(C(K), \| . \|_{\infty})$ es completo.
+\end{theorem}
+
+\begin{proof}
+    Sea $(f_n) \subset C(K)$ una sucesión de Cauchy, luego $(f_n)$ es uniformemente de Cauchy, por lo tanto $f_n \rightrightarrows f$, además como todas las funciones son continuas por el teorema \ref{thm:continuous-function-convergence} se sigue que $f$ es continua y por ende $f \in C(K)$, por lo que el espacio métrico es completo.
+\end{proof} 
+
+\begin{prop}
+    Sean $(f_n)$ una familia de funciones con $f_n: A \rightarrow \mathbb{R}$ acotada, si $(f_n) \rightrightarrows f$, entonces $f$ está acotada. 
+\end{prop}
+
+\begin{proof}
+    Por definición de convergencia uniforme se tiene que $\forall \epsilon > 0, \exists n_0 \in \mathbb{N} : | f - f_n | < \epsilon, \forall n \geq n_0$. En particular para $\epsilon = 1, \exists n_0 \in \mathbb{N} : | f - f_{n_0} | < 1 \Rightarrow | f(x) | < |f_{n_0}(x)| + 1, \forall x\in A$ y por ende $f$ está acotada. 
+\end{proof}
+
+\begin{prop}
+    Sea $(X, d)$ un espacio métrico y sea $B(X) = \{ f: X \rightarrow R, f \text{acotada} \}$. Y sea $(B(X), \| . \|_{\infty})$ espacio métrico, entonces $B(X)$ es completo.
+\end{prop}
+
+\begin{proof}
+    Sea $(f_n) \subset B(X)$ una sucesión de Cauchy, luego $f_n \rightrightarrows f$ por la propiedad 8.3 (referenciar), y por lo tanto $f$ está acotada por la propiedad anterior, es decir $f \in B(X)$, por lo que el espacio métrico es completo.
+\end{proof}
+
+Una parte fundamental del estudio de las sucesiones es el estudio de las series, es decir, estudiar las sucesiones de sumas parciales. Ese mismo estudio se puede hacer con las sucesiones de funciones y tiene sentido analizar las series de funciones (tema que entiendo va a ser fundamental para el análisis funcional y cuando veamos series de Fourier)
+
+\begin{definition}
+    Sea $E$ un espacio de Banach y $(x_n) \subset E$ una sucesión. Se define la N-ésima suma parcial de $(x_n)$ como $S_N = \sum_{n=1}^{N} x_n$. La sucesión $(S_N)$ es la sucesión de las sumas parciales de $(x_n)$
+\end{definition}
+
+\begin{definition}
+    Decimos que la serie $\sum_{n=1}^{\infty} x_n$ converge cuando existe el límite $\lim_{N\to\infty}S_N = \lim_{N\to\infty}\sum_{n=1}^{N}x_n$. A ese límite, que es un elemento de $E$, se lo nota justamente $\sum_{n=1}^{\infty}x_n$.
+\end{definition}
+
+\begin{definition}
+    Se dice que la serie $\sum_{n=1}^{\infty}x_n$ converge absolutamente en $E$ si $\sum_{n=1}^{\infty}\|x_n\| < +\infty$
+\end{definition}
+
+Gran parte del estudio de las series es entender bajo que criterios convergen y poder tener herramientas para saber si una serie en particular converge, esto no es el tema de esta materia pero de todas formas mostramos dos simples criterios de convergencia.
+
+\begin{prop}
+    Sea $E$ un espacio de Banach y $(x_n) \subset E$ una sucesión. Si la serie $\sum_{n=1}^{\infty}x_n$ converge absolutamente, entonces converge.
+\end{prop}
+
+\begin{proof}
+    Como la serie absoluta converge se tiene que $\overline{S} = \sum_{n=1}^{N} \| x_n \|$ es una sucesión de Cauchy, por lo que dado $\epsilon > 0, \exists n_0 \in \mathbb{N} : | \overline{S_n} - \overline{S_m} | < \epsilon, \forall n, m \geq n_0$. Sea $S_M, S_N$ las sumas parciales de la sucesión $(x_n)$, con $M \geq N$. Se tiene que $\| S_M - S_N \| = \| \sum_{n=N+1}^{M} x_n \| \leq \sum_{n=N+1}^{M} \| x_n \| = | \overline{S_M} - \overline{S_N} | < \epsilon, \forall M, N \geq n_0$. Por lo tanto la sucesion $(S_N)$ es de Cauchy y como $E$ es un espacio métrico de Banach, en particular es un espacio completo, por lo que $(S_N)$ converge, es decir la serie $\sum_{n=1}^{\infty} x_n$ converge. 
+\end{proof}
+
+(REVISAR CLARIDAD DE ESTA DEMOSTRACIÓN)
+
+\begin{theorem}[Criterio de Weierstrass]
+    Sea $(f_n)$ con $f_n: X\rightarrow \mathbb{R}$ una sucesión de funciones. Si existe $(c_n)$ con $c_n \geq 0$ otra sucesión tal que $|f_n(x)| \leq c_n, \forall x\in X$ y además $\sum_{n=1}^{\infty} c_n$ converge, entonces la serie $\sum_{n=1}^{\infty}f_n$ converge absolutamente y uniformemente a una función acotada de $X \rightarrow \mathbb{R}$
+\end{theorem}
+
+\begin{proof}
+    Como las $f_n$ están acotadas se tiene que $f_n \in B(X), \forall n\in \mathbb{N}$, y como $B(X)$ es un espacio métrico completo basta con mostrar que la sucesión de sumas parciales es de Cauchy. Sea $(C_N)$ la sucesión de sumas parciales de $(c_n)$, entonces, como converge en $\mathbb{R}$, es de Cauchy y se tiene que dado $\epsilon > 0, \exists n_0 \in \mathbb{N} : | C_M - C_N | < \epsilon, \forall M, N \geq n_0$. Sea $(F_N)$ la sucesión de sumas parciales de $(f_n)$, sea $M \geq N$, entonces $|F_M - F_N| = |\sum_{n=N+1}^{M} f_n | \leq \sum_{n=N+1}^{M} |f_n| \leq \sum_{n=N+1}^{M} c_n = |C_M - C_N| < \epsilon, \forall M, N \geq n_0$. Por lo tanto la serie converge uniformemente a $f \in B(X)$ y también lo hace de forma absoluta.
+\end{proof}
 \section{Teoría de la medida}
 
 \section{Integral de Lebesgue}
