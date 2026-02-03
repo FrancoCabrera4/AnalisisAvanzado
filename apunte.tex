@@ -8,6 +8,7 @@
 \newtheorem{prop}{Propiedad}[section]
 \newtheorem{notacion}{Notación}[section]
 \newtheorem{colorario}{Colorario}[section]
+\newtheorem{observacion}{Observación}[section]
 \begin{document}
 
 
@@ -175,7 +176,7 @@ Revisar esta última demo
 \end{definition}
 
 \begin{definition}
-    Sea $E$ un conjunto cualquiera. Definimos la distancia discreat en $E$ como:
+    Sea $E$ un conjunto cualquiera. Definimos la distancia discreta en $E$ como:
     \[
         \delta(x, y) = \begin{cases}
             0 & x = y \\
@@ -730,7 +731,152 @@ Gran parte del estudio de las series es entender bajo que criterios convergen y 
 \end{proof}
 \section{Teoría de la medida}
 
+Ya estamos por llegar al climax de esta materia, donde definimos esta nueva forma de integrar distinta a la propuesta por Riemann, que consiste en la idea de agarrar una función fijar un punto de la imagen y para ver cuanto aporte ese pedazo a la integral, lo multiplicamos por la medida de la preimagen de ese punto. Como muestra la imagen inferior. Pero antes de lanzarnos a estudiar esta integral hay que prestar atención y ver que antes es necesario saber medir conjuntos en $\mathbb{R}$.
+
+\begin{definition}
+    Sea $X$ un conjunto y $A$ una familia de subconjuntos de $X$, es decir $A \subset \mathcal{P}(X)$. Se dice que $A$ es una $\sigma$-álgebra si es cerrada por complementos y  uniones numerables. Es decir:
+    \begin{itemize}
+        \item Si $a\in A \Rightarrow a^{c} = X \setminus a \in A$
+        \item Si $a_n \in A, \forall n\in \mathbb{N} \Rightarrow \cup_{n\in \mathbb{N}}a_n \in A$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Si $U = (a, b), a<b$, su longitud está definida por:
+    \[
+        \text{long}(U) = \begin{cases}
+            b - a & \text{Si }a, b \text{ son finitos}  \\
+            +\infty & \text{Si alguno es infinito} 
+        \end{cases}
+    \]
+\end{definition}
+
+\begin{definition}
+    Se dice que $A \subset \mathbb{R}$ es un conjunto nulo si para todo $\epsilon > 0$ existen contables intervalos abiertos $(U_n)_{n\in J}$ tales que:
+    \[
+        A \subset \bigcup_{n \in J}U_n,  \sum_{n\in J} \text{long}(U_n) < \epsilon
+    \]
+\end{definition}
+
+(ME GUSTARÍA MEJOR FORMATO PARA ESTO)
+
+\begin{definition}
+    La $\sigma$-álgebra $\mathcal{M}$ generada por los intervalos abiertos y los conjuntos nulos de $\mathbb{R}$ es la $\sigma$-álgebra de los conjuntos medibles de Lebesgue.
+\end{definition}
+
+\begin{theorem}
+    Existe una única función $\mu: \mathcal{M} \rightarrow [0, +\infty]$ tal que:
+    \begin{itemize}
+        \item Si $A = (a, b) \Rightarrow \mu(A) = b - a$
+        \item Si $A_n \in \mathcal{M}, \forall n\in \mathbb{N} \Rightarrow \mu(\bigcup_{n\in \mathbb{N}}A_n) \leq \sum_{n\in \mathbb{N}}\mu(A_n)$
+        \item Si $A_n \in \mathcal{M}, \forall n\in \mathbb{N}, A_i \cap A_j = \emptyset, \forall i \neq j \Rightarrow \mu(\bigcup_{n\in \mathbb{N}}A_n) = \sum_{n\in \mathbb{N}}\mu(A_n)$ ($\sigma$-aditividad de la medida)
+        \item Si $A\in\mathcal{M} \Rightarrow \mu(A) = inf\{ \mu(U) : A \subset U, U \text{conjunto abierto} \}$ (regularidad de la medida)
+    \end{itemize}
+\end{theorem}
+
+En esta materia este teorema se toma así y no se ve su demostración, si se quiere se puede buscar en internet o cursar la materia cálculo avanzado de matemáticas. 
+
+\begin{observacion}
+    $\mu(\emptyset) = 0$
+\end{observacion}
+
+\begin{proof}
+    Sea $A_1 = (0, 1), A_n = \emptyset, \forall n \geq 2$. Como esta familia de conjuntos es disjunta dos a dos (el vacío intersección lo que sea es vacío), por la $\sigma$-aditividad de la medida se tiene que $\mu(\bigcup_{n\in \mathbb{N}}A_n) = \sum_{n=1}^{\infty}\mu(A_n) \Rightarrow \mu((0, 1)) = \mu((0, 1)) + \sum_{n=2}^{\infty}\mu(A_n) \Rightarrow \sum_{n=2}^{\infty}\mu(\emptyset) = 0 \Rightarrow \mu(\emptyset) = 0$
+\end{proof}
+
+\begin{prop}
+    Todo abierto de $\mathbb{R}$ se puede expresar como una unión contable de intervalos abiertos. 
+\end{prop}
+
+\begin{proof}
+    Sea $V\subset \mathbb{R}$ un conjunto abierto. Dado $x\in V, \exists \epsilon > 0 : (x - \epsilon, x + \epsilon) \subset V$. Sea $I_x$ el mayor intervalo abierto tal que $x\in I_x \subset V$. Sean $x, y \in V$, entonces $x\in I_x, y\in I_y \Rightarrow I_x \cap I_y = \emptyset \lor I_x = I_y$, supongamos que esto no fuera así, es decir, sin perdida de generalidad, $I_x = (a, b), I_y = (\overline{a}, \overline{b})$, con $a < \overline{a} < b < \overline{b}$, luego $\overline{I}_x = (a, \overline{b})$ cumple que $x\in \overline{I}_x \land \text{long}(I_x) < \text{long}(\overline{I}_x)$, absurdo!. Resulta que $V = \cup_{x\in V} I_x$ y en particular podemos eliminar los conjuntos repetidos y se obtiene que $V = \cup_{j\in J}I_{x_j}$, y finalmente resulta que son contables (pués no puede haber una familia no contable de intervalos abiertos disjuntos en $R$, ejercicio 17 de la práctica 2).
+\end{proof}
+
+\begin{observacion}
+    Por esta última propiedad resulta que todo $A$ conjunto abierto es contable, es decir, $A\in\mathcal{M}$, y por ende también todo conjunto cerrado.
+\end{observacion}
+
+\begin{prop}
+    Sea $\mu: \mathcal{M}\rightarrow [0, +\infty]$ la medida de Lebesgue. Entonces, $\mu$ satisface las siguientes propiedades:
+    \begin{itemize}
+        \item Si $A, B \in \mathcal{M}, A \subset B \Rightarrow \mu(A) \leq \mu(B)$ (Monotonía de la medida)
+        \item $A \subset \mathbb{R}$ es un conjunto nulo $\iff$ $\mu(A) = 0$
+        \item Dados $A \in\mathcal{M}, c\in \mathbb{R}$, se tiene que $A + c \in \mathcal{M} \land \mu(A + c) = \mu(A)$ (Invariante por translación de la medida)
+    \end{itemize}
+\end{prop}
+\begin{proof}
+    Si $A, B \in \mathcal{M}, A\subset B \Rightarrow \mu(B) = \mu(B\setminus A) + \mu(A) \Rightarrow \mu(A) \leq \mu(B)$ \\ \\
+    Si $A$ es un conjunto nulo, $\forall \epsilon > 0, \exists U_n, n\in \mathbb{N} : A \subset \cup_{n\in \mathbb{N}} U_n \land \sum_{n=1}^{\infty} \mu(U_n) < \epsilon$, por lo tanto por la monotonía de la medida, al ser la union de intervalos un conjunto abierto y por tanto medible, se tiene que $\forall \epsilon>0, \exists \overline{U}_{\epsilon} : \mu(A) \leq \mu(\overline{U}_{\epsilon}) < \epsilon \Rightarrow \mu(A) = 0$. De forma similar si $\mu(A) = 0$, por la regularidad de la medida, $\forall \epsilon > 0, \exists U$ conjunto abierto tal que $A \subset U \land \mu(U) < \epsilon$ y como ya vimos que todo abierto se puede expresar como unión numerable de intervalos abiertos se tiene que $A$ es un conjunto nulo. \\ \\
+
+    Si $A$ es un intervalo, digamos $A = (a, b)$ es inmediato, puesto que $\mu((a + c, b + c)) = (b + c) - (a + c) = (b - a) = \mu((a, b))$. Ahora por la regularidad de la medida, por cada $U$ conjunto abierto tal que $A \subset U$, como $U$ se puede expresar como una unión contable de intervalos abiertos se sigue que $\mu(U + c) = \mu(U)$. Además notemos que si $x \in (z, y) \subset U\Rightarrow x+c \in (z+c, y+c) \subset U+c \Rightarrow A + c \subset U + c$. Por lo tanto, teniendo en cuenta la propiedad de ínfimos de abiertos de la medida se sigue que $\mu(A) \geq \mu(A + c)$, pero ahora aplicando este mismo argumento con $(A + c) - c$ se sigue que $\mu(A + c) \geq \mu((A + c) - c) = \mu(A)$, y finalmente $\mu(A) = \mu(A + c)$.
+\end{proof}
+
+\begin{prop}
+    Sean $A, B \in \mathcal{M} \Rightarrow A \setminus B \in \mathcal{M}, \mu(A\cup B) = \mu(A\setminus B) + \mu(B)$. En particular, si $B \subset A$ y $\mu(B) < \infty$, entonces $\mu(A\setminus B) = \mu(A) - \mu(B)$
+\end{prop}
+\begin{proof}
+    Por definición, como $A\cup B = (A\setminus B) \cup B$ y como $(A\setminus B) \cap B = \emptyset$, entonces vale $\mu(A\cup B) = \mu(A\setminus B) + \mu(B)$. Si además se cumple la segunda hipótesis esa ecuación se vuelve $\mu(A) = \mu(A\setminus B) + \mu(B)$, y como $\mu(B) < \infty$ se puede pasar restando para obtener $\mu(A) - \mu(B) = \mu(A\setminus B)$
+\end{proof}
+
+\begin{prop}[Regularidad por cerrados]
+    Sea $A \in \mathcal{M}$, entonces $\forall \epsilon > 0, \exists F \subset A$ con $F$ conjunto cerrado tal que $\mu(A\setminus F) < \epsilon$
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}[Continuidad de la medida]
+    Sea $\{ A_n \}_{n\in \mathbb{N}} \subset \mathcal{M}$ tal que $A_1 \subset A_2 \subset ... \subset A_n \subset ...$, entonces:
+    \[
+        \mu(\cup_{n\in \mathbb{N}} A_n) = \lim_{n\to\infty}\mu(A_n)
+    \]
+    A su vez, sea $\{ B_n \}_{n\in \mathbb{N}} \subset \mathcal{M}$ tal que $B_1 \supset B_2 \supset ... \supset B_n \supset ...$, y supongamos que existe $n_0 \in \mathbb{N}$ con $\mu(B_{n_0}) < \infty$, entonces:
+    \[
+        \mu(\cap_{n\in \mathbb{N}}B_n) = \lim_{n\to\infty}\mu(B_n)
+    \]
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}[Conjunto de Cantor]
+    Todo conjunto numerable es nulo, pero no todo conjunto nulo es numerable.
+\end{theorem}
+
+(ESTE TEOREMA PROBABLEMENTE TENGA MÁS SENTIDO INTRODUCIRLO ANTES)
+
 \section{Integral de Lebesgue}
 
+Ya casi estamos en condiciones de introducir propiamente a la integral de Lebesge, ya sabemos como medir conjuntos y ya queremos ir a demostrar todos los teoremas y propiedades que cumple esta nueva integral. Pero... antes de eso hay que dedicarle un poco de tiempo a considerar cuales son las funciones medibles, lo que de hecho nos va a dar mucha intuición sobre que es lo que va a hacer la integral.
+
+\begin{definition}
+    Dado $A\subset \mathbb{R}$, la función característica $\chi_A: \mathbb{R} \rightarrow \mathbb{R}$ se define como:
+    \[
+        \chi_A(x) = \begin{cases}
+            1 & x \in A \\
+            0 & x \not\in A
+        \end{cases}
+    \]
+\end{definition}
+
+\begin{definition}
+    Sea $E \subset \mathbb{R}$, una partición de $E$ es una colección de conjuntos $\{ E_n \}$ disjuntos dos a dos tales que 
+    \[
+        E = \bigcup_{n\in \mathbb{N}}E_n
+    \]
+    Si $E$ es medible, se dice que la partición es medible si cada $E_n$ es medible. 
+\end{definition}
+
+\begin{definition}
+    Una función $f: E \subset \mathbb{R} \rightarrow \mathbb{R}$ se dice simple si existe una partición de $E$ en finitos conjuntos $E_1, ..., E_N$ y números $\alpha_1, ..., \alpha_N$ tales que: \[
+        f(x) = \sum_{n=1}^{N}\alpha_n\chi_{E_n}(x)
+    \]
+    Además, si los $E_n$ son intervalos, se dice que $f$ es simple escalonada o escalonada a secas.
+\end{definition}
+
+\begin{definition}
+    Sean $E\in\mathcal{M}$ y $f: E \rightarrow \mathbb{R}\cup \{$
+\end{definition}
 \end{document}
 
