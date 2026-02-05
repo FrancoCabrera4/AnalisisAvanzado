@@ -9,6 +9,7 @@
 \newtheorem{notacion}{Notación}[section]
 \newtheorem{colorario}{Colorario}[section]
 \newtheorem{observacion}{Observación}[section]
+\newtheorem{lema}{Lema}[section]
 \begin{document}
 
 
@@ -876,7 +877,172 @@ Ya casi estamos en condiciones de introducir propiamente a la integral de Lebesg
 \end{definition}
 
 \begin{definition}
-    Sean $E\in\mathcal{M}$ y $f: E \rightarrow \mathbb{R}\cup \{$
+    Se dice que una propiedad vale en casi todo punto si el conjunto de los $x$ en los que no vale esta propiedad tiene medida $0$.
 \end{definition}
+
+
+\begin{definition}
+    Sean $E\in\mathcal{M}$ y $f: E \rightarrow \mathbb{R}\cup \{\pm\infty\}$. Se dice que $f$ es medible si $\forall a\in \mathbb{R}$ el conjunto $\{x\in E : f(x) \leq a\} = f^{-1}((-\infty, a))$ es medible.
+\end{definition}
+
+\begin{prop}
+    Sea $E$ medible y $f: E \rightarrow \mathbb{R}\cup \{\pm\infty\}$. Resultan equivalentes:
+    \begin{itemize}
+        \item $f$ es medible
+        \item $\forall a\in \mathbb{R}$, el conjunto $\{x\in E : f(x) < a \}$ es medible
+        \item $\forall a \in \mathbb{R}$, el conjunto $\{ x\in E : f(x) \geq a \}$ es medible
+        \item $\forall a \in \mathbb{R}$, el conjunto $\{x\in E : f(x) > a\}$ es medible
+    \end{itemize}
+\end{prop}
+\begin{proof}
+    Si $f$ es medible, luego $\forall n\in \mathbb{N}, A_n = \{ x\in E : f(x) \leq a - \frac{1}{n}\}$ es medible y por tanto también lo es $A = \cup_{n\in \mathbb{N}}A_n$ y resulta claro que $A = \{ x\in E : f(x) < a \}$. A su vez, como $\mathcal{M}$ es una $\sigma$-álgebra se tiene que $A^{c} = \{c\in E : f(x) \geq a \}$ también es medible. Usando el mismo argumento se tiene que $\forall n \in \mathbb{N}, B_n = \{ x\in E : f(x) \geq a + \frac{1}{n}\}$ también es medible y por tanto también lo es $B = \cup_{n\in \mathbb{N}}B_n$, que cumple $B = \{x\in E : f(x) > a\}$. Para terminar el ciclo de implicaciones vemos que $B^{c} = \{x\in E : f(x) \leq a \} \Rightarrow f$ es medible. \\
+    Es decir, se probó que $1) \Rightarrow 2) \Rightarrow 3) \Rightarrow 4) \Rightarrow 1)$, lo que significa que todas las proposiciones son equivalentes.
+\end{proof}
+
+\begin{theorem}[Límite de medible por funciones simples]
+    Sea $f: E\rightarrow [0, +\infty]$ una función medible. Entonces, existe una sucesión de creciente $(f_n)$ de funciones simples no negativas que converge puntualmente a $f$ en $E$:
+    \begin{align*} 
+        0 \leq f_n(x) \leq f_{n+1}(x), \forall x\in E, n\in \mathbb{N} \\
+        f(x) = \lim_{n\to\infty} f_n(x), \forall x\in E
+    \end{align*}
+    
+    Además, si $f$ es acotada, la sucesión converge a $f$ uniformemente en $E$.
+\end{theorem}
+(REVISAR ALINEACIÓN DE ESTE TEOREMA)
+\begin{proof}
+    Para cada $n\in \mathbb{N}$ se define el conjunto $E^{n} = \{ x\in E : f(x) < n\}$ y se hace una partición de forma que $E_j^{n} = \{x\in E : \frac{j-1}{2^{n}} \leq f(x) < \frac{j}{2^{n}}\} = f^{-1}([\frac{j-1}{2^{n}}, \frac{j}{2^{n}}))$, con $1\leq j\leq n2^{n}$ y se define entonces: 
+    \[
+        f_n(x) = \begin{cases}
+            \frac{j-1}{2^{n}} & x\in E^{n}_j \\
+            n & f(x) \geq n
+        \end{cases}
+    \]
+    Como cada $f_n$ toma finitos valores, resulta que son funciones simples y por ende toda $f_n$es medible. También se cumple que $f_n \leq f_{n+1}$. En efecto si $f_n(x) = n \Rightarrow f_{n+1}(x) \geq n$ y si $f_n(x) \neq n$, digamos que $f_n(x) = \frac{j-1}{2^{n}}$, entonces:
+    \begin{align*}
+        \frac{j-1}{2^{n}} \leq x < \frac{j}{2^{n}}, 1\leq j\leq n  \\
+        x\in [\frac{(j-1)(2)}{2^{n+1}}, \frac{2j-1}{2^{n+1}}) \lor x\in [\frac{2j-1}{2^{n+1}}, \frac{2j}{2^{n+1}})
+    \end{align*}
+    Y por ende $f_{n+1}(x) \geq f_n(x)$. Finalmente, si $f(x) = \infty, f_n(x) = n, \forall n\in \mathbb{N} \Rightarrow f_n(x) \rightarrow f(x)$. Por el contario si $f(x)$ es finito, y al evaluar la función simple se tiene que $\frac{j-1}{2^{n}} \leq f(x) \leq \frac{j}{2^{n}} \Rightarrow 0 \leq | f_n(x) - f(x) | \leq \frac{1}{2^{n}}, \forall n\geq n_0 \in \mathbb{N} \Rightarrow f_n(x) \rightarrow f(x)$. \\
+    Para ver la convergencia uniforme, sea $k\in \mathbb{N} : f(x) \leq k, \forall x\in E$, entonces por lo visto en el parrafo anterior, se cumple que $|f_n(x) - f(x)| \leq \frac{1}{2^{n}}, \forall n\geq k, \forall x\in E$.
+
+\end{proof}
+
+\begin{definition}[Integral de Lebesgue de funciones simples]
+    Sean $\{ E_n \}_{i=1}^{N}$ una partición medible de $E$ y $f: E \rightarrow R$ una función simple dada por:
+    \[
+        f(x) = \sum_{i=1}^{N}\alpha_i \chi_{E_i}(x)
+    \]
+    Se define la integral de Lebesgue de $f$ como:
+    \[
+        \int_E fd\mu := \sum_{i=1}^{N}\alpha_i\mu(E_i)
+    \]
+\end{definition}
+
+\begin{prop}
+    Sean $f, g: E \rightarrow \mathbb{R}$ funciones simples y $a, b\in \mathbb{R}$, entonces:
+    \begin{itemize}
+        \item $\int_E(af + bg)d\mu = a\int_Efd\mu + b\int_Egd\mu$ (Linealidad)
+        \item $f \leq g, \forall x\in E \Rightarrow \int_Efd\mu \leq \int_Egd\mu$ (Monotonía)
+        \item $|\int_Efd\mu| \leq \int_E|f|d\mu$
+    \end{itemize}
+\end{prop}
+
+\begin{proof}
+    Escalares salen para afuera, pues si $f(x) = \sum_{i=1}^{N}\alpha_i\chi_{E_i}(x) \Rightarrow af(x) = \sum_{i=1}^{N}a\alpha_i\chi_{E_i}(x) \Rightarrow \int_E(af)d\mu = \sum_{i=1}^{N}a\alpha_i\mu(E_i) = a\sum_{i=1}^{N}\alpha_i\mu(E_i) = a\int_Efd\mu$. Es decir, $\int_E(af)d\mu = a\int_Efd\mu$. \\
+    Es lineal, pues sea $A_{ij} = E_i \cap \overline{E}_j$, luego $f + g = \sum_{i=1}^{N}\sum_{j=1}^{M}(\alpha_i + \beta_j)\chi_{A_{ij}}$ y al evaluar la integral se obtiene:
+    \begin{align*}
+        \int_E(f+g)d\mu = \sum_{i=1}^{N}\sum_{j=1}^{M}(\alpha_i + \beta_j)\mu(A_{ij}) = \\
+    \sum_{i=1}^{N}\sum_{j=1}^{M}\alpha_i\mu(A_{ij}) + \sum_{i=1}^{N}\sum_{j=1}^{M}\beta_j\mu(A_{ij}) = \\
+    \sum_{i=1}^{N}\alpha_i\sum_{j=1}^{M}\mu(A_{ij}) + \sum_{j=1}^{N}\sum_{i=1}^{M}\beta_j\mu(A_{ij}) = \\
+    \sum_{i=1}^{N}\alpha_i\mu(A_i) + \sum_{j=1}^{N}\beta_j\sum_{i=1}^{M}\mu(A_{ij}) = \\
+    \int_Efd\mu + \sum_{j=1}^{N}\beta_j\mu(A_j) = \\
+    \int_Efd\mu + \int_Egd\mu
+    \end{align*}
+    Para ver la monotonía se tiene que 
+    \begin{align*}
+        \int_Efd\mu = \sum_{i=1}^{N}\alpha_i\mu(E_i) = \\
+        \sum_{i=1}^{N}\sum_{j=1}^{M}\alpha_i\mu(E_i\cap\overline{E}_j) \leq \\
+        \sum_{i=1}^{N}\sum_{j=1}^{M}\beta_i\mu(E_i\cap\overline{E}_j) = \\
+        \sum_{j=1}^{M}\beta_j\sum_{i=1}^{N}\mu(E_i\cap\overline{E}_j) = \\
+        \sum_{j=1}^{M}\beta_j\mu(\overline{E}_j) = \\
+        \int_Egd\mu
+    \end{align*}
+    Finalmente, la desigualdad triangular para el módulo se ve más directamente:
+    \[
+        |\int_Efd\mu| = |\sum_{i=1}^{N}\alpha_i\mu(E_i)| \leq 
+        \sum_{i=1}^{N} |\alpha_i\mu(E_i)| = \sum_{i=1}^{N}|\alpha_i|\mu(E_i) = \int_E|f|d\mu
+    \]
+\end{proof}
+
+\begin{definition}
+    Sea $f: E\rightarrow \mathbb{R}$ una función medible tal que $f\geq 0, \forall x\in E$. Se define la integral de Lebesgue de $f$ como: 
+    \[
+        \int_Efd\mu := sup\{\int_E\phi d\mu : \phi \text{ es simple}, \land \ 0\leq \phi \leq f\}
+    \]
+\end{definition}
+
+\begin{theorem}
+    Sean $f, g: E\rightarrow \mathbb{R}$ funciones medibles y no negativas en $E$. Entones, la integral de Lebesgue cumple las siguientes propiedades:
+    \begin{itemize}
+        \item si $0\leq f\leq g \Rightarrow \int_Efd\mu \leq \int_Egd\mu$
+        \item $\int_Efd\mu < \infty \Rightarrow f < \infty$ en casi todo punto de $E$
+        \item Si $A\subset E$ es un conjunto medible $\Rightarrow \int_Afd\mu \leq \int_Efd\mu$
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    Si $\phi$ es simple y $0 \leq \phi \leq f \Rightarrow 0 \leq \phi\leq g$, por lo tanto si $t \in \{\int_E\phi d\mu : \phi \text{ es simple}, \land \ 0 \leq \phi\leq f\} \Rightarrow x \in \{\int_E\phi d\mu : \phi \text{ es simple}, \land \ 0 \leq \phi\leq g\}$, lo que significa que $\int_Efd\mu \leq \int_Egd\mu$ \\
+    Si $f = \infty, \forall x \in A\subset E$, donde $A$ es un conjunto con medida no nula, se puede definir $(\phi_n)$ sucesión de funciones simples tales que $0 \leq \phi_n \leq f, \forall n\in \mathbb{N}$ como: 
+    \[
+        \phi_n(x) = \begin{cases}
+            n & x \in A \\
+            0 & x \not\in A
+        \end{cases}
+    \]
+Entonces es claro que $\int_E\phi_n d\mu = n\mu(A)$ y que $\lim_{n\to\infty}\int_E\phi_n d\mu = \infty \Rightarrow \int_Efd\mu = \infty$, ¡absurdo! Por ende se concluye que tal conjunto $A$ de medidad no nula no puede existir. \\
+
+Basta con ver que si $\phi: A \rightarrow \mathbb{R}$ es una función simple tal que $0\leq\phi\leq f, \forall x\in A$, entonces se puede definir $\overline{\phi}: E \rightarrow \mathbb{R}$ como:
+\[
+    \overline{\phi}(x) = \begin{cases}
+        \phi(x) & x\in A \\
+        0 & x\not\in A
+    \end{cases}
+\]
+Que cumple $0\leq \overline{\phi}\leq f, \forall x\in E, \land \ \int_A\phi d\mu = \int_E\overline{\phi}d\mu$ y esto nos dice, al igual que en la monotonía por funciones, que $\int_Afd\mu \leq \int_Efd\mu$
+\end{proof}
+
+\begin{theorem}[Teorema de la convergencia monótona]
+    Sea $(f_n)$ una sucesión de funciones medibles definidas en $E$ tales que $0\leq f_n\leq f_{n+1}, \forall n\in \mathbb{N}$. Si $f = \lim_{n\to\infty}f_n$, entonces:
+    \[
+        \int_Efd\mu = \lim_{n\to\infty}\int_Ef_nd\mu
+    \]
+\end{theorem}
+
+Cuando escuché la explicación de este teorema no entendí nada, cuando releí la demostración que había copiado tampoco entendí nada. Lo que dice el teorema es en realidad bastante intuitivo: si uno tiene una sucesión de funciones crecientes que tienen un límite, entonces: el límite de las integrales es igual a la integral del límite. Con una imagen esto se visualiza mejor.
+
+\begin{proof}
+    Para empezar, notemos que efectivamente tanto $f = \lim_{n\to\infty}f_n$ y $\lim_{n\to\infty}\int_Ef_nd\mu$ ambos existen y esto es inmediato, puesto que el primero, el límite puntual, es una sucesión creciente en $\mathbb{R}$ que converge (o eventualmente es $+\infty$ que también está bien) y el segundo es también una sucesión de números reales creciente (que nuevamente puede ser eventualmente $+\infty$). \\
+    Como suele ocurrir en las igualdades, vamos a demostrarla con la doble desigualdad. \\
+    Notemos que $\int_Ef_nd\mu \leq \int_Efd\mu, \forall n\in \mathbb{N} \Rightarrow \lim_{n\to\infty}\int_Ef_nd\mu \leq \int_Efd\mu$, y ya se tiene la primera desigualdad. \\
+    Ahora, para la otra dirección, recordando que $\int_Efd\mu = sup\{ \int_E \phi d\mu : \phi \text{ es simple } \land \ 0\leq\phi\leq f \}$, la estrategia va a ser mostrar que dado cualquier $\phi$ en ese conjunto existe un $n_0$ para el cual $f_{n_0} \geq \phi$. Sin embargo, esto no va a ser tan automático porque la convergencia de las $(f_n)$ es puntual, no uniforme. Sea $\phi : 0\leq\phi\leq f$ una función simple y $\alpha : 0<\alpha<1$, luego defino $E_n = \{ x\in E : f_n \geq \alpha\phi \}$, como las $f_n$ son crecientes se tiene que $E_n \subset E_{n+1}$ y a su vez como $\alpha\phi < f \Rightarrow \cup_{n\in \mathbb{N}}E_n = E$. Entonces para cada $n\in \mathbb{N}$ se cumple $\int_Ef_nd\mu \geq \int_{E_n}f_nd\mu \geq \int_{E_n}\alpha\phi d\mu$ y por lo tanto:
+    \begin{align*}
+        \lim_{n\to\infty}\int_Ef_nd\mu \geq \lim_{n\to\infty}\int_{E_n}\alpha\phi d\mu = \lim_{n\to\infty}\sum_{i=1}^{M}\alpha \beta_i\mu(A_i\cap E_n) = \\ \sum_{i=1}^{M}\alpha\beta_i\mu(A_i) = \alpha\int_E\phi d\mu
+    \end{align*}
+    Notar que la última igualdad en donde se hace el paso al límite vale por la continuidad de la medidad (revisar propiedad). Finalmente como la $\phi$ era arbitraría y $0<\alpha<1$ se concluye que $\int_Efd\mu \leq \lim_{n\to\infty}\int_Ef_nd\mu$. Juntando ambas desigualdades se concluye:
+    \[
+        \lim_{n\to\infty}\int_Ef_nd\mu = \int_E\lim_{n\to\infty}f_nd\mu
+    \]
+\end{proof}
+
+Realmente dura demostración.
+
+\begin{prop}
+    Sea $f\geq 0$ medible definida en $E$. Entonces, $\int_Efd\mu = 0 \iff f = 0$ en casi todo punto de $E$.
+\end{prop}
+
+\begin{proof}
+    $\Rightarrow)$ Sea $E_n := \{x\in E : f(x) \geq \frac{1}{n} \}, \forall n\in \mathbb{N}$. Es claro que $E_n$ es medible para todo $n$ y sea $\phi_n = \frac{1}{n}\chi_{E_n}$, que es una función simple con $0\leq\phi_n\leq f$. Por la monotonía de la integral se sigue que $0\leq\int_E\phi_n d\mu \leq \int_E fd\mu \Rightarrow \frac{1}{n}\mu(E_n) = 0, \forall n\in \mathbb{N}$. Es decir, $\mu(E_n) = 0, \forall n\in \mathbb{N}$. Y a su vez $\cup_{n=1}^{\infty}E_n = \{ x\in E : f(x) > 0 \}$, lo que quiere decir $\mu(\{x\in E:f(x) > 0\}) = \mu(\cup_{n=1}^{\infty}E_n) \leq \sum_{n=1}^{\infty}\mu(E_n) = 0 \Rightarrow \mu(\{x\in E:f(x) > 0\}) = 0$, y por lo tanto $f$ vale $0$ en casi todo punto. \\
+    $\Leftarrow)$ Si $f$ vale $0$ en casi todo punto de $E$, toda función simple $0\leq \phi\leq f$ va a cumplir $\int_E\phi d\mu \leq 0 + \alpha_N\mu(A)$, con $\mu(A) = 0 \Rightarrow \int_E\phi d\mu = 0$. Por lo tanto $\int_Efd\mu = 0$.
+\end{proof}
 \end{document}
 
