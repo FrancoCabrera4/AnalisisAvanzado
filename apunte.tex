@@ -3,6 +3,9 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage[spanish]{babel}
+\usepackage[margin=4cm]{geometry}
+\usepackage[graf, intHoriz, sinLU]{../../latex_common/caratula_uba/caratula}
 \newtheorem{theorem}{Teorema}[section]
 \newtheorem{definition}{Definición}[section]
 \newtheorem{prop}{Propiedad}[section]
@@ -10,10 +13,24 @@
 \newtheorem{colorario}{Colorario}[section]
 \newtheorem{observacion}{Observación}[section]
 \newtheorem{lema}{Lema}[section]
+
+
+\integrante{Franco Cabrera}{}{https://github.com/FrancoCabrera4}
+\titulo{Análisis avanzado - Apuntes}
+\fecha{\today}
+\materia{Análisis avanzado}
+
 \begin{document}
 
+\newgeometry{margin=2cm}
+
+\maketitle
+
+\restoregeometry
 
 \section{Introducción}
+
+El objetivo de estas notas es construir y consolidar a nivel más profundo los contenidos vistos en esta materia. Por lo tanto no está escrito de una forma particularmente pedagógica, sino más bien está más cerca de una enumeración de los resultados y teoremas más destacables, obviando algunos de menor talla. De cualquier forma, al momento de escribir esto, no me consta la existencia de un apunte de esta materia "hecho y derecho", así que no me parecería descabellado pensar que podría evolucionar en eso. Por eso invito a cualquier estudiante que lo lea y quiera contribuír que haga una pull request al repo que sera bienvenida.
 
 
 \section{Preliminares}
@@ -78,6 +95,7 @@ Resulta bastante análogo demostrar todas estas definiciones y equivalencias par
     \item $i$ es cota inferior de $A$
     \item $\forall t$ cota inferior de $A$, $t\leq i$
 \end{itemize}
+\end{definition}
 
 \begin{definition}
     Sea $(a_n) \subset \mathbb{R}$ una sucesión. Se define el límite inferior de la sucesión como:
@@ -531,7 +549,7 @@ Ya entendemos lo que es un espacio métrico y tenemos diversas herramientas para
 \end{theorem}
 \begin{proof}
     La implicación derecha es automática por la proposición demostrada antes. Así que hay que demostrar la implicación hacia la izquierda. \\
-    Sea $(x_n) \subset K$, como $K$ es acotado también lo es la sucesión. Sea $x_n = (x_n^{1}, x_n^{2}, ..., x_n^{m})$, como $x_n$ esta acotado también lo esta $x_n^{i}, \forall 1 \leq i \leq m$, y en particular lo está $x_n^{1}$, así que por el teorema de Bolzano-Weierstrass existe $x_{n_j}^{1} \rightarrow x^{1}$. Así que ahora podemos considerar a $x_{n_j} = (x_{n_j}^{1}, x_{n_j}^{2}, ..., x_{n_j}^{m})$, y repitiendo el argumento resulta que $x_{n_j}^{2}$ tiene una subsucesión $x_{n_{j_l}}^{2} \rightarrow x^{2}$ y a su vez $x_{n_{j_l}}^{1} \rightarrow x^{1}$ por que toda subsucesión de una sucesión convergente converge al mismo límite. Finalmente utilizando este argumento en las $m$ coordenadas se sigue que existe una subsucesión $x_{n_j_{..._h}} \rightarrow x$ y como $K$ es cerrado se tiene que $x \in K$ y por lo tanto se concluye que $K$ es compacto.
+    Sea $(x_n) \subset K$, como $K$ es acotado también lo es la sucesión. Sea $x_n = (x_n^{1}, x_n^{2}, ..., x_n^{m})$, como $x_n$ esta acotado también lo esta $x_n^{i}, \forall 1 \leq i \leq m$, y en particular lo está $x_n^{1}$, así que por el teorema de Bolzano-Weierstrass existe $x_{n_j}^{1} \rightarrow x^{1}$. Así que ahora podemos considerar a $x_{n_j} = (x_{n_j}^{1}, x_{n_j}^{2}, ..., x_{n_j}^{m})$, y repitiendo el argumento resulta que $x_{n_j}^{2}$ tiene una subsucesión $x_{n_{j_l}}^{2} \rightarrow x^{2}$ y a su vez $x_{n_{j_l}}^{1} \rightarrow x^{1}$ por que toda subsucesión de una sucesión convergente converge al mismo límite. Finalmente utilizando este argumento en las $m$ coordenadas se sigue que existe una subsucesión $x_{n_{j_{..._h}}} \rightarrow x$ y como $K$ es cerrado se tiene que $x \in K$ y por lo tanto se concluye que $K$ es compacto.
 \end{proof}
 
 \begin{theorem}
