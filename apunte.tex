@@ -18,20 +18,35 @@
 
 \section{Preliminares}
 
+En este primer capítulo vamos a definir todos las nociones fundacionales que se van a utiliizar a lo largo de la materia. Principalmente hay que entender claramente que son las sucesiones, subsucesiones, la convergencia y el límite. Entiendo que pueden sonar como básicas algunas definiciones, mientras que otras son nuevas, pero me parece importante tenerlas todas juntas para saber de donde partimos.
+
 \begin{definition}
-    Sea $A \in \mathbb{R}$ un conjunto no vacío. Se dice que $c \in \mathbb{R}$ es una cota superior de $A$ si $c \ge x, \forall x \in A$. Un conjunto acotado superiormente es aquel que tiene una cota superior.
+    Sea $(a_n)$ una sucesión, entonces una sucesión $(a_{n_k})$ es una subsucesión de la primera si y solo si $(n_k)$ es una sucesión estrictamente creciente de números naturales. Es decir, una subsucesión respeta el orden de la sucesión, pero eventualmente puede omitir algunos términos.
 \end{definition}
 
 \begin{definition}
-    Sea $A \in \mathbb{R}$ un conjunto no vacío y acotado superiormente. Se dice que $s \in \mathbb{R}$ es supremo de $A$ si cumple:
+    Sea $(a_n) \subset \mathbb{R}$ una sucesión, se dice que la sucesión converge si existe un $a$ tal que:
+    \[
+        \forall\epsilon>0, \exists n_0 : | a - a_n | < \epsilon, \forall n\geq n_0
+    \]
+    Y este $a$ se llama el límite de la sucesión y se nota $\lim_{n\to\infty}a_n = a$
+\end{definition}
+
+\begin{definition}
+    Sea $A \subset \mathbb{R}$ un conjunto no vacío. Se dice que $c \in \mathbb{R}$ es una cota superior de $A$ si $c \ge x, \forall x \in A$. Un conjunto acotado superiormente es aquel que tiene una cota superior.
+\end{definition}
+
+\begin{definition}
+    Sea $A \subset \mathbb{R}$ un conjunto no vacío y acotado superiormente. Se dice que $s \in \mathbb{R}$ es supremo de $A$ si cumple:
     \begin{itemize}
         \item $s$ es cota superior de $A$
         \item $\forall t$ cota superior de $A$, $t \ge s$
     \end{itemize}
+    Y en ese caso se nota $s = \sup(A)$
 \end{definition}
 
 \begin{prop}
-    Sea $A \in \mathbb{R}$ un conjunto no vacío y acotado superiormente. $s \in \mathbb{R}$ es supremo de $A$ si y solo si cumple:
+    Sea $A \subset \mathbb{R}$ un conjunto no vacío y acotado superiormente. $s \in \mathbb{R}$ es supremo de $A$ si y solo si cumple:
     \begin{itemize}
         \item $s$ es cota superior de A
         \item $\forall \epsilon > 0, \exists a \in A : a > s - \epsilon$
@@ -43,7 +58,7 @@
     Para la otra dirección de la equivalencia también tenemos la primera condición dada. Supongo ahora que $\exists t < s$ tal que $t$ es cota superior. Por hipótesis si se fija $\epsilon = s - t, \exists a \in A : a > s - \epsilon = s - (s - t) = t \Rightarrow a > t$, pero se tiene que $t$ es cota superior, absurdo. Y por ende se concluye que $s$ es supremo de $A$.
 \end{proof}
 \begin{prop}
-    Sea $A \in \mathbb{R}$ un conjunto no vacío y acotado superiormente. Luego $s \in \mathbb{R}$ es supremo de $A$ si y solo si:
+    Sea $A \subset \mathbb{R}$ un conjunto no vacío y acotado superiormente. Luego $s \in \mathbb{R}$ es supremo de $A$ si y solo si:
     \begin{itemize}
         \item $s$ es cota superior de $A$
         \item $\exists (a_n) \subset A : a_n \rightarrow s$
@@ -55,6 +70,42 @@
     Para la otra dirección, de forma análoga ya se tiene la primera propiedad. Supongo que el supremo no es $s$, sea $t$ el supremo, luego se tiene que $t < s$ y se puede definir $\epsilon = s - t$ y por definición de límite se cumple que $\exists n_0 \in \mathbb{N} : n \ge n_0 \Rightarrow |s - a_n | < \epsilon$ y por lo tanto se cumple que $a_n > s - \epsilon = s - (s - t) = t$, pero $t$ es el supremo de $A$, absurdo. Y se demostró lo pedido.
 \end{proof}
 
+Resulta bastante análogo demostrar todas estas definiciones y equivalencias para las cotas inferiores. A modo de ejemplo dejo la definición de ínfimo.
+
+\begin{definition}
+    Sea $A \subset \mathbb{R}$ un conjunto no vacío y acotado inferiormente. Luego $i \in \mathbb{R}$ es ínfimo de $A$ si y solo si:
+\begin{itemize}
+    \item $i$ es cota inferior de $A$
+    \item $\forall t$ cota inferior de $A$, $t\leq i$
+\end{itemize}
+
+\begin{definition}
+    Sea $(a_n) \subset \mathbb{R}$ una sucesión. Se define el límite inferior de la sucesión como:
+    \[
+        \liminf a_n = \sup_{n\in \mathbb{N}}\inf_{k\geq n}a_k 
+    \]
+    De manera análogo se define el límite superior de la sucesión como:
+    \[
+        \limsup a_n = \inf_{n\in \mathbb{N}}\sup_{k\geq n}a_k
+    \]
+\end{definition}
+
+\begin{observacion}
+    Tanto el límite inferior y el límite superior siempre existen, sin importar la convergencia de la sucesión, puesto que se toma el supremo e ínfimo de sucesiones monótonas (eventualmente puede ser $\pm\infty$).
+\end{observacion}
+
+\begin{notacion}
+    Sea $(a_n) \subset \mathbb{R}$ una sucesion creciente tal que $\lim_{n\to\infty}a_n = a$, luego para indicar que $a_n \rightarrow a$ de manera monótona creciente se nota:
+    \[
+        a_n \uparrow a
+    \]
+    De manera análoga si la sucesión es monótona decreciente con $\lim_{n\to\infty}a_n = a$ se nota:
+    \[
+        a_n \downarrow a
+    \]
+\end{notacion}
+
+A lo largo de los capítulos vamos a ver que esta notación se extiende de manera natural a sucesiones de conjuntos, funciones y demás.
 \section{Cardinalidad}
 
 En esta sección vamos a dedicar un tiempo a pensar y explorar la noción de tamaño o cardinalidad de conjuntos en los que habitualmente no pensamos de esta forma, estos son los conjuntos no finitos. Cuando un conjunto es finito la cantidad de elementos que tiene es naturalmente su cardinal y de esta forma podemos notar que si $A = \{1, 2, 3\}$ entonces $\#A = 3$.
@@ -122,12 +173,42 @@ Revisar esta última demo
     Sea $\{ A_n \}$ una familia numerable de conjuntos numerables, entonces $A = \cup A_n$ es un conjunto numerable.
 \end{prop}
 
-\begin{theorem}
-    Teorema de diagonalización de Cantor
-\end{theorem}
+\begin{proof}
+    Hay dos formas bastante intuitivas de demostrar esta propiedad: una es usar el argumento de diagonalización de Cantor y la otra es usar el teorema de Schroder-Berstein. En ambas surge a primera vista que es "incómodo" que los conjuntos $A_n$ no son disjuntos dos a dos, ya que esto mata a los argumentos porque vamos a encontrar, potencialmente, elementos repetidos. 
 
-\begin{prop}
-    Hipótesis del continuo de Cantor
+    Teniendo esto en cuenta sea $\{ B_n \}$ una familia contable de conjuntos definidos por: $B_1 = A_1, B_2 = A_2 \setminus A_1$, y de forma general $B_n = A_n \setminus (\cup_{i=1}^{n-1}A_i)$. Por construcción resulta claro que $\cup_{n=1}^{\infty}B_n = \cup_{n=1}^{\infty}A_n$ y que $i\neq j \Rightarrow B_i \cap B_j = \emptyset$. Sea $f(n) = B_{1n}$ y $g(B_{ij}) = p_i^{j}$, donde  $p_i = i$-ésimo número primo y $B_{ij} \in B$. Como ambas funciones son inyectivas, utilizando el teorema de Schroder-Berstein, que $A \sim \aleph_0$.
+\end{proof}
+
+\begin{theorem}[Teorema de diagonalización de Cantor]
+    El conjunto de los números reales $\mathbb{R}$ no es numerable.
+\end{theorem}
+\begin{proof}
+    Supongamos por el contrario que lo es, entonces existe una sucesión $(a_n)_{n\in \mathbb{N}}$ que contiene a todos los números reales. Expandamos esta sucesión en su expresión decimal de forma que:
+    \[
+    \begin{array}{cccccccc}
+        a_1 & = & d_{11} & d_{12} & d_{13} & d_{14} & d_{15} & \cdots \\
+        a_2 & = & d_{21} & d_{22} & d_{23} & d_{24} & d_{25} & \cdots \\
+        a_3 & = & d_{31} & d_{32} & d_{33} & d_{34} & d_{35} & \cdots \\
+        a_4 & = & d_{41} & d_{42} & d_{43} & d_{44} & d_{45} & \cdots \\
+        a_5 & = & d_{51} & d_{52} & d_{53} & d_{54} & d_{55} & \cdots \\
+    \end{array}
+    \]
+    Considero entonces al número real $b$ dado en expresión decimal por:
+    \[
+        b_i = \begin{cases}
+            5 & d_{ii} \neq 5 \\
+            4 & d_{ii} = 5
+        \end{cases}
+    \]
+    Por construcción se sigue que $b \neq a_i, \forall i\in \mathbb{N}$, es decir $b$ no está en la sucesión, pero $b$ es un número real, ¡absurdo! Por lo tanto se concluye que $\#\mathbb{R} > \aleph_0$.
+\end{proof}
+
+Como ya vimos existen cardinales más grandes que otros, y se puede probar (es un ejercicio para hacer) que el cardinal de $\mathcal{P}(\mathbb{N})$ es igual al cardinal de $\mathbb{R}$. Cantor pensaba, cosa que no pudo demostrar, que no había otro cardinal $\aleph_1$ que cumpliera $\aleph_0 < \aleph_1 < c$ y está suposición se la acuño hipótesis del continuo. Tiempo después se demostraría que este resultado es indemostrable, es decir, partiendo de los axiomas y definiciones que fuimos planteando la existencia o no de tal cardinal resulta logicamente compatible en cualquier caso con el sistema. 
+\begin{prop}[Hipótesis del continuo de Cantor]
+    No existe otro cardinal $\aleph_1$ tal que cumpla:
+    \[
+        \aleph_0 < \aleph_1 < c
+    \]
 \end{prop}
 
 \section{Espacios Métricos}
@@ -213,11 +294,14 @@ Revisar esta última demo
 \end{definition}
 
 \begin{theorem}
-    Sea $\{ A_n \}$ una familia de conjuntos abiertos, entonces $A = \cup A_n$ es un conjunto abierto. Además si la familia es finita, $B = \cap A_n$ también es abierto
+    Sea $\{ A_n \}$ una familia de conjuntos abiertos, entonces $A = \cup A_n$ es un conjunto abierto. Además si la familia es finita, $B = \cap A_n$ también es abierto.
 \end{theorem}
 
 \begin{proof}
-    
+    Sea $y \in A$, luego en particular $\exists i : y \in A_i$ y como $A_i$ es un conjunto abierto se tiene que $\exists\epsilon > 0 : B(y, \epsilon)\subset A_i \subset A$, por lo tanto $y$ es un punto interior de $A$ y se concluye que $A$ es un conjunto abierto. 
+
+    Sea $y\in B$, luego $\exists r_1, r_2, \cdots, r_N : B(y, r_1)\subset A_1, B(y, r_2)\subset A_2, \cdots, B(y, r_N)\subset A_n$. Sea $r = \min\{r_i, 1\leq i\leq N\}$, entonces vale que $B(y, r) \subset A_i, 1\leq i \leq N \Rightarrow B(y, r) \subset \cap_{i=1}^{N}A_i = B$, es decir $y$ es un punto interior de $B$ y por lo tanto $B$ es un conjunto abierto.
+
 \end{proof}
 
 \begin{definition}
@@ -226,6 +310,10 @@ Revisar esta última demo
 
 \begin{definition}
     Se dice que $x$ es un punto de adherencia del conjunto $A \subset E$ si para todo $r > 0$, $A \cap B(x, r) \neq \emptyset$
+\end{definition}
+
+\begin{definition}
+    Se dice que $x$ es un punto de acumulación del conjunto $A \subset E$ si para todo $r > 0$, el conjunto $A\cup B(x, r)$ es un conjunto infinito.
 \end{definition}
 
 \begin{definition}
@@ -240,25 +328,26 @@ Revisar esta última demo
     Un conjunto $A$ es cerrado si y solo si $A^{c}$ es abierto.
 \end{theorem}
 \begin{proof}
-    
+    $\Rightarrow)$ Supongamos que $A^{c}$ no es un conjunto abierto, luego $\exists a \in A^{c} : \forall r>0, B(x, r)\not\subset A^{c}$, es decir, $\forall r>0, \exists y_r \in A : y\in B(a, r)$. Considero entonces la sucesión $(y_n) \subset A : y_n \in B(a, \frac{1}{n})$, resulta entonces que $y_n \rightarrow a$, y como $A$ es un conjunto cerrado toda sucesión convergente converge en el conjunto, es decir, $a\in A$, ¡absurdo! Puesto que por hipótesis $a\in A^{c}$. Se concluye, entonces, que $A^{c}$ es un conjunto abierto.
+
+    $\Leftarrow)$ Si $A$ no es cerrado, $\exists (y_n) \subset A : y_n \rightarrow y \not\in A$, es decir, $y\in A^{c}$. Entonces $\forall r>0, \exists y_n : y_n \in B(y, r) \Rightarrow B(y, r)\not\subset A^{c}$, es decir, $y$ no es un punto interior de $A^{c}$ y por lo tanto no es un conjunto abierto, ¡absurdo!. Por lo tanto $A$ es cerrado.
 \end{proof}
 \begin{theorem}
     Sea $\{ A_n \}$ una familia de conjuntos cerrados. Si la familia es finita, entonces $A = \cup A_n$ es un conjunto cerrado.
 \end{theorem}
 \begin{proof}
-    
+    Consiero $(\cap A_n^{c})^{c}$, como la intersección finita de conjuntos abiertos es abierta se tiene que ese conjunto es cerrado. Además, por las leyes de De Morgan se tiene:
+    \[
+        (\bigcap A_n^{c})^{c} = \bigcup (A_n^{c})^{c}) = \bigcup A_n = A
+    \]
 \end{proof}
 
 \begin{definition}
     Dada un conjunto $A$, el conjunto de puntos de acumulación de $A \subset E$ se denomina conjunto derivado de $A$, y se lo nota:
     \[
-        A' = \{ x\in E : x \text{es punto de acumulación de} A \}
+        A' = \{ x\in E : x \text{ es punto de acumulación de } A \}
     \]
 \end{definition}
-
-\begin{theorem}
-    Sea $A \subset E$, entonces $\bar{A} = A \cup A'$
-\end{theorem}
 
 \begin{definition}
     Dado $A \subset E$, se dice que $x$ es un punto de la frontera de $A$ si para todo $r>0$, se cumple:
@@ -285,7 +374,7 @@ Dado un conjunto $A \subset E$, se dice que es acotado si existen $x\in E, r>0$ 
 \end{definition}
 
 \begin{definition}
-    Una sucesión $(x_n)_n$ se dice de cauchy si para todo $\epsilon > 0$ existe $n_0 \in \mathbb{N}$ tal que si $n, m \geq n_0$, entonces $d(x_n, x_m) < \epsilon$
+    Una sucesión $(x_n)_n$ se dice de Cauchy si para todo $\epsilon > 0$ existe $n_0 \in \mathbb{N}$ tal que si $n, m \geq n_0$, entonces $d(x_n, x_m) < \epsilon$
 \end{definition}
 
 \begin{theorem}
@@ -297,7 +386,19 @@ Dado un conjunto $A \subset E$, se dice que es acotado si existen $x\in E, r>0$ 
     \end{itemize}
 \end{theorem}
 \begin{proof}
+    Por ser sucesión de Cauchy en particular para $\epsilon = 1, \exists n_0 : d(x_n, x_{n_0}) < 1, \forall n\geq n_0$. Sea $R = \max\{d(x_1, x_{n_0}), d(x_2, x_{n_0}), \cdots, d(x_{n_0 -1}, x_{n_0}), 1\}$. Luego $x_n \in B(x_{n_0}, R), \forall n\in \mathbb{N}$, es decir $(x_n)$ está acotada.
+
+    Si $x_n\rightarrow x$, entonces $\forall \epsilon > 0, \exists n_0 : d(x_n, x) < \frac{\epsilon}{2}, \forall n\geq n_0$. Por lo tanto dado $n, m \geq n_0$ se tiene: 
+    \[
+        d(x_n, x_m) \leq d(x_n, x) + d(x, x_m) \leq \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+    \]
+    Es decir, $(x_n)$ es de Cauchy.
     
+    Sea $(x_{n_j}) \rightarrow x\in E$ la subsucesión convergente. Luego dado $\epsilon > 0, \exists n_0 : d(x_{n_j}, x) < \frac{\epsilon}{2}, \forall j \geq n_0$. Por ser de Cauchy existe $n_1 : d(x_n, x_m) < \frac{\epsilon}{2}, \forall n, m\geq n_1$. Sea $n_3 = \max\{n_0, n_1\}$, luego:
+    \[
+        d(x_n, x) \leq d(x_n, x_{n_{n_3}}) + d(x_{n_{n_3}}, x) \leq \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon, \forall n\geq n_3
+    \]
+    Por lo tanto $x_n \rightarrow x$ y la sucesión es convergente.
 \end{proof}
 \begin{definition}
     Un espacio métrico $(E, d)$ se dice completo si toda sucesión de cauchy es convergente a algún punto $x \in E$
@@ -550,7 +651,7 @@ Por otro lado, defino $g: (\mathbb{R}^{n}, \| . \|_1) \rightarrow (\mathbb{R}, |
 
 \begin{proof}
     Como los espacios tienen la misma dimensión, $\exists T: E \rightarrow \mathbb{R}^{n}$ tal que $T$ es un isomorfismo. Sea $z \in \mathbb{R}^{n}$ se define $\| z \|_0 := \| T^{-1}(z) \|_E$. Vamos a demostrar que esto define a una norma y que esta norma cumple ser una isometría. \\
-    Si $z=0 \Rightarrow \| 0 \|_0 = \| T^{-1}(0) \|_E = \| = \| 0 \|_E = 0$, puesto que toda transformación lineal manda el $0$ al $0$ y toda norma evaluada en $0$ da $0$. Ademas como $T$ es una biyección no hay otro vector que tenga como imagen al $0$, es decir $\| z \|_0 = 0 \iff z = 0$. \\
+    Si $z=0 \Rightarrow \| 0 \|_0 = \| T^{-1}(0) \|_E = \| 0 \|_E = 0$, puesto que toda transformación lineal manda el $0$ al $0$ y toda norma evaluada en $0$ da $0$. Ademas como $T$ es una biyección no hay otro vector que tenga como imagen al $0$, es decir $\| z \|_0 = 0 \iff z = 0$. \\
     $\| \alpha z \|_0 = \| T^{-1}(\alpha z) \|_E = \| \alpha T^{-1}(z) \|_E = |\alpha|\|T^{-1}(z)\|_E = |\alpha|\|z_0\|$, es decir la función saca escalares por fuera. \\
 
     $\| x + y \|_0 = \|T^{-1}(x + y)\|_E = \|T^{-1}(x) + T^{-1}(y)\|_E \leq \|T^{-1}(x)\|_E + \|T^{-1}(y)\|_E \leq \|x\|_0 + \|y\|_0$, por lo que se concluye que $T$ es una norma. \\
@@ -558,7 +659,7 @@ Por otro lado, defino $g: (\mathbb{R}^{n}, \| . \|_1) \rightarrow (\mathbb{R}, |
     Finalmente veamos que es una isometría, $d_0(T(x), T(y)) = \| T(x) - T(y) \|_0 = \| T^{-1}(T(x) - T(y))\|_E = \|T^{-1}(T(x)) - T^{-1}(T(y))\|_E = \| x - y \|_E$
 \end{proof}
 
-(REVISAR ESTA DEMO)
+Esta demostración es un poco rara porque la idea para la construcción de la norma es, a lo menos, algo inesperada que se nos ocurra.
 
 \begin{colorario}
     Todo espacio de normado de dimensión finita es completo, es decir es un espacio de Banach
@@ -1044,5 +1145,121 @@ Realmente dura demostración.
     $\Rightarrow)$ Sea $E_n := \{x\in E : f(x) \geq \frac{1}{n} \}, \forall n\in \mathbb{N}$. Es claro que $E_n$ es medible para todo $n$ y sea $\phi_n = \frac{1}{n}\chi_{E_n}$, que es una función simple con $0\leq\phi_n\leq f$. Por la monotonía de la integral se sigue que $0\leq\int_E\phi_n d\mu \leq \int_E fd\mu \Rightarrow \frac{1}{n}\mu(E_n) = 0, \forall n\in \mathbb{N}$. Es decir, $\mu(E_n) = 0, \forall n\in \mathbb{N}$. Y a su vez $\cup_{n=1}^{\infty}E_n = \{ x\in E : f(x) > 0 \}$, lo que quiere decir $\mu(\{x\in E:f(x) > 0\}) = \mu(\cup_{n=1}^{\infty}E_n) \leq \sum_{n=1}^{\infty}\mu(E_n) = 0 \Rightarrow \mu(\{x\in E:f(x) > 0\}) = 0$, y por lo tanto $f$ vale $0$ en casi todo punto. \\
     $\Leftarrow)$ Si $f$ vale $0$ en casi todo punto de $E$, toda función simple $0\leq \phi\leq f$ va a cumplir $\int_E\phi d\mu \leq 0 + \alpha_N\mu(A)$, con $\mu(A) = 0 \Rightarrow \int_E\phi d\mu = 0$. Por lo tanto $\int_Efd\mu = 0$.
 \end{proof}
+
+Ya probamos que la integral es lineal sobre funciones simples y ahora vamos a extender ese resultado a todas las funciones medibles positivas utilizando ese hecho.
+\begin{theorem}[Linealidad de la integral]
+    
+    Sean $f, g \geq 0$ funciones medibles con $f, g: E \rightarrow R\cup\{\pm\infty\}$. Y sea $c\in \mathbb{R}$, entonces:
+    \begin{itemize}
+        \item $\int_Ecfd\mu = c\int_Efd\mu$ 
+        \item $\int_E(f + g)d\mu = \int_Efd\mu + \int_Egd\mu$
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    La primera propiedad es inmediata puesto que es propiedad del supremo que $sup(cA) = c\cdot sup(A)$. \\
+    Por la propiedad (REFERENCIAR PROPIEDAD), existen $(f_n), (g_n):E \rightarrow \mathbb{R}$ tales que $0\leq f_n \leq f, 0\leq g_n\leq g, \forall n\in \mathbb{N}$, y además $f_n\uparrow f, g_n\uparrow g$. Por lo tanto $(f_n + g_n) \uparrow (f + g)$.Usando el teorema de la convergencia monótona (REFERENCIAR), se tiene que:
+    \begin{align*}
+        \int_E(f+g)d\mu = \lim_{n\to\infty}\int_E(f_n + g_n)d\mu = \lim_{n\to\infty}(\int_Ef_nd\mu + \int_Eg_nd\mu) = \\
+        \lim_{n\to\infty}\int_Ef_nd\mu + \lim_{n\to\infty}\int_Eg_nd\mu = \int_Efd\mu + \int_Egd\mu
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Sumatoria permuta con la integral]
+    Sea $(f_n)$ una sucesión de funciones medibles definidas en $E$, tales que $f_n \geq 0, \forall n\in \mathbb{N}$, entonces:
+    \[
+        \int_E\sum_{n=1}^{\infty}f_nd\mu = \sum_{n=1}^{\infty}\int_Ef_nd\mu
+    \]
+\end{theorem}
+
+\begin{proof}
+    Sea $S_N = \sum_{n=1}^{N}f_n$, es decir la N-ésima suma parcial. Como las $f_n$ son estrictamente no negativas se tiene que la sucesión $S_N$ es creciente, de forma que se puede aplicar el teorema de la convergencía monótona y se obtiene:
+    \begin{align*} 
+        \int_E\sum_{n=1}^{\infty}f_nd\mu = \int_E\lim_{n\to\infty}S_nd\mu = \\
+        \lim_{n\to\infty}\int_ES_nd\mu = \lim_{n\to\infty}\int_E(f_1 + f_2 + ... + f_n)d\mu = \\
+        \lim_{n\to\infty}(\int_Ef_1d\mu + \int_Ef_2d\mu + ... + \int_Ef_nd\mu) = \sum_{n=1}^{\infty}\int_Ef_nd\mu
+    \end{align*}
+\end{proof}
+
+\begin{lema}[Lema de Fatou]
+    
+    Sea $(f_n)$ una sucesión de funciones medibles definidas en $E$ tales que $f_n \geq 0, \forall n\in \mathbb{N}$, entonces:
+    \[
+        \int_E\liminf f_nd\mu \leq \liminf \int_Ef_nd\mu
+    \]
+\end{lema}
+
+\begin{proof}
+    Si $(f_n)$ es una sucesión de funciones medibles, entonces $(g_n)$ dada por $g_n = \inf_{k\geq n}f_n$, es una sucesión monótona creciente de funciones medibles. Y también resulta que $\lim_{n\to\infty}g_n = \sup(g_n) = \liminf f_n$. Por lo tanto aplicando el teorema de la convergencia monótona se cumple: 
+    \[
+        \lim_{n\to\infty}\int_Eg_nd\mu = \int_E\lim_{n\to\infty}g_nd\mu = \int_E\liminf f_nd\mu
+    \]
+    A su vez, puesto que $0 \leq g_n \leq f_n, \forall n\in \mathbb{N}$, se cumple:
+    \[
+        \int_Eg_nd\mu \leq \int_Ef_nd\mu \Rightarrow \lim_{n\to\infty}\int_Eg_nd\mu \leq \lim_{n\to\infty}\int_Ef_nd\mu = \liminf\int_Ef_nd\mu
+    \]
+    Esta última igualdad, puesto que si el límite existe entonces tanto el límite inferior y el límite superior son iguales entre sí e iguales al límite. Juntando ambas partes se tiene:
+    \[
+        \int_E\liminf f_nd\mu \leq \liminf\int_Ef_nd\mu
+    \]
+\end{proof}
+
+\begin{theorem}[Teorema de la convergencia dominada]
+    Sea $(f_n)$ una sucesión de funciones medibles definidas en $E$, tales que $f_n\geq 0, \forall n\in \mathbb{N}$. Supongamos que $f = \lim_{n\to\infty}f_n$ y que existe una función $\phi$ medible definida en $E$ tal que $f_n\leq\phi, \forall n\in \mathbb{N}$. Si $\int_E\phi d\mu < \infty$, entonces:
+    \[
+        \lim_{n\to\infty}\int_Ef_nd\mu = \int_Efd\mu
+    \]
+\end{theorem}
+
+\begin{proof}
+\end{proof}
+
+\begin{theorem}[Continuidad absoluta de la integral]
+    Sea $f\geq 0$ medible definida en $E$, tal que $\int_Efd\mu < \infty$. Entonces, dado $\epsilon > 0, \exists\delta> 0$ tal que:
+    \[
+        A \subset E \text{ es medible } \land \mu(A) <\delta \Rightarrow \int_Afd\mu < \epsilon
+    \]
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Sea $f\geq 0$ medible. Se dice que $f$ es integrable en $E$ si $\int_Efd\mu < +\infty$.
+\end{definition}
+
+\begin{notacion}
+    Sea $f$ una función medible, luego se nota:
+    \[
+        f^{+} := max\{f, 0\} = \begin{cases}
+            f(x) & f(x) \geq 0 \\
+            0 & f(x) < 0
+        \end{cases}
+    \]
+    \[
+        f^{-} := min\{f, 0\} = \begin{cases}
+            0 & f(x) \geq 0 \\
+            -f(x) & f(x) < 0
+        \end{cases}
+    \]
+    De esta forma se tiene que $f = f^{+} - f^{-}, |f| = f^{+} + f^{-}$. 
+\end{notacion}
+
+\begin{definition}
+    Sea $f$ una función medible. Se dice que $\int_Efd\mu$ existe si:
+    \[
+        \int_Ef^{+}d\mu < +\infty \ \lor \ \int_Ef^{-}d\mu < +\infty
+    \]
+    En ese caso se define la integral como:
+    \[
+        \int_Efd\mu = \int_Ef^{+} - \int_Ef^{-}d\mu
+    \]
+    Y se dice que $f$ es integrable en $E$ si $\int_Efd\mu$ existe y es un número finito.
+\end{definition}
+
+\begin{theorem}[Integrable Riemman implica integrable Lebesgue]
+    Sea $I$ un intervalo cerrado y acotado y $f: I \rightarrow \mathbb{R}$ una función acotada. Si $f$ es integrable Riemman, entonces es integrable Lebesge y ambas integrales coinciden.
+\end{theorem}
 \end{document}
 
